@@ -10,9 +10,21 @@ namespace Factory_System
     {
         private StockManager stockManager;
 
-        public ClientCommand(StockManager stockManager)
+        public ClientCommand(StockManager manager)
         {
-            this.stockManager = stockManager;
+            stockManager = manager;
+        }
+
+        public void ProcessCommand(string command)
+        {
+            if (command == "STOCK")
+            {
+                stockManager.DisplayStocks();
+            }
+            else
+            {
+                Console.WriteLine("Invalid command.");
+            }
         }
 
     }

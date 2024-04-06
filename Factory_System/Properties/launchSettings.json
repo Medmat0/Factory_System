@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Factory_System": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\yassi\\OneDrive\\Bureau\\4al_Sem2\\DesignPatterns\\Projet_DesignPatterns\\Factory_System"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}
