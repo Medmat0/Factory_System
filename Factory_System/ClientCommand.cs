@@ -6,18 +6,25 @@ using System.Threading.Tasks;
 
 namespace Factory_System
 {
-    internal class ClientCommand
-    {
-        private StockManager stockManager;
-
-        public ClientCommand(StockManager manager)
+        internal class ClientCommand
         {
-            stockManager = manager;
-        }
+            private StockManager stockManager;
 
-        public void ProcessCommand(string command)
-        {
-            if (command == "STOCK")
+            public ClientCommand(StockManager manager)
+            {
+                stockManager = manager;
+            }
+
+            public void ProcessCommand(string command)
+            {
+            string[] commandParts = command.Split(' ');
+
+            if (commandParts.Length == 2 && commandParts[0] == "NEEDED_STOCKS")
+            {
+                string[] args = commandParts[1].Split(',');
+                stockManager.DisplayNeededStocks(args);
+            }
+            else if (command == "STOCKS")
             {
                 stockManager.DisplayStocks();
             }
@@ -26,6 +33,7 @@ namespace Factory_System
                 Console.WriteLine("Invalid command.");
             }
         }
-
     }
-}
+
+        
+    }

@@ -30,24 +30,24 @@ namespace Factory_System
     {
         new Vaisseau("Explorer", new List<Piece>
         {
-            new Piece("Hull_HE1", 1),
-            new Piece("Engine_EE1", 1),
-            new Piece("Wings_WE1", 1),
-            new Piece("Thruster_TE1", 1)
+            new Piece("Hull_HE1", 5),
+            new Piece("Engine_EE1", 9),
+            new Piece("Wings_WE1", 3),
+            new Piece("Thruster_TE1", 5)
         }),
         new Vaisseau("Speeder", new List<Piece>
         {
-            new Piece("Hull_HS1", 1),
-            new Piece("Engine_ES1", 1),
+            new Piece("Hull_HS1", 6),
+            new Piece("Engine_ES1", 2),
             new Piece("Wings_WS1", 1),
-            new Piece("Thruster_TS1", 2)
+            new Piece("Thruster_TS1", 6)
         }),
         new Vaisseau("Cargo", new List<Piece>
         {
-            new Piece("Hull_HC1", 1),
+            new Piece("Hull_HC1", 6),
             new Piece("Engine_EC1", 1),
-            new Piece("Wings_WC1", 1),
-            new Piece("Thruster_TC1", 1)
+            new Piece("Wings_WC1", 5),
+            new Piece("Thruster_TC1", 10)
         })
     };
 
@@ -94,5 +94,63 @@ namespace Factory_System
                 Console.WriteLine($"{kvp.Value} {kvp.Key}");
             }
         }
+
+
+        public void DisplayNeededStocks(string[] args)
+        {
+            Console.WriteLine("Needed pieces :");
+
+            Dictionary<string, Dictionary<string, int>> neededStocks = new Dictionary<string, Dictionary<string, int>>();
+
+            foreach (string vaisseauName in args)
+            {
+                foreach (Vaisseau vaisseau in AvailableVaisseaux)
+                {
+                    if (vaisseau.Name == vaisseauName)
+                    {
+                        if (!neededStocks.ContainsKey(vaisseauName))
+                            neededStocks[vaisseauName] = new Dictionary<string, int>();
+
+                        foreach (Piece piece in vaisseau.Pieces)
+                        {
+                            if (!neededStocks[vaisseauName].ContainsKey(piece.Name))
+                                neededStocks[vaisseauName][piece.Name] = 0;
+
+                            neededStocks[vaisseauName][piece.Name]++;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            foreach (var vaisseauOb in neededStocks)
+            {
+                Console.WriteLine($"{vaisseauOb.Key} :");
+                foreach (var pieceVaisOb in vaisseauOb.Value)
+                {
+                    Console.WriteLine($"{pieceVaisOb.Value} {pieceVaisOb.Key}");
+                }
+            }
+
+            Console.WriteLine("Total :");
+            Dictionary<string, int> totalNeededStocks = new Dictionary<string, int>();
+            foreach (var vaisseauOb in neededStocks)
+            {
+                foreach (var pieceVaisOb in vaisseauOb.Value)
+                {
+                    if (!totalNeededStocks.ContainsKey(pieceVaisOb.Key))
+                        totalNeededStocks[pieceVaisOb.Key] = 0;
+
+                    totalNeededStocks[pieceVaisOb.Key] += pieceVaisOb.Value;
+                }
+            }
+            foreach (var vaisseauOb in totalNeededStocks)
+            {
+                Console.WriteLine($"{vaisseauOb.Value} {vaisseauOb.Key}");
+            }
+        }
     }
+
+   
+
 }

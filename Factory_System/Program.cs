@@ -12,7 +12,8 @@ namespace Factory_System
                 ClientCommand commandClient = new ClientCommand(stockManager);
 
 
-                Console.WriteLine("Enter 'STOCK' command to display stock:");
+                Console.WriteLine("Welcome the factory vaissaux : \n");
+                Console.WriteLine("Entre your command !");
                 string userInput = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(userInput))
