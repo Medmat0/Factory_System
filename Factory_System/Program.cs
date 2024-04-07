@@ -8,21 +8,25 @@ namespace Factory_System
         {
             try
             {
+
                 StockManager stockManager = new StockManager();
                 ClientCommand commandClient = new ClientCommand(stockManager);
 
 
                 Console.WriteLine("Welcome the factory vaissaux : \n");
-                Console.WriteLine("Entre your command !");
-                string userInput = Console.ReadLine();
+                while (true)
+                {
+                    Console.WriteLine("Entre your command !");
+                    string userInput = Console.ReadLine();
 
-                if (!string.IsNullOrEmpty(userInput))
-                {
-                    commandClient.ProcessCommand(userInput);
-                }
-                else
-                {
-                    Console.WriteLine("You must enter a command.");
+                    if (!string.IsNullOrEmpty(userInput))
+                    {
+                        commandClient.ProcessCommand(userInput);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You must enter a command.");
+                    }
                 }
             }
             catch (Exception ex)

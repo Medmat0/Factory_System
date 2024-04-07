@@ -24,6 +24,21 @@ namespace Factory_System
                 string[] args = commandParts[1].Split(',');
                 stockManager.DisplayNeededStocks(args);
             }
+            else if(commandParts.Length >= 2 && commandParts[0] == "VERIFY")
+            {
+               
+               
+                    string[] args = commandParts[1].Split(',');
+                    if (stockManager.VerifyStockCommand(args))
+                    {
+                        Console.WriteLine("AVAILABLE");
+                    }
+                    else
+                    {
+                        Console.WriteLine("UNAVAILABLE");
+                    }
+               
+            }
             else if (command == "STOCKS")
             {
                 stockManager.DisplayStocks();

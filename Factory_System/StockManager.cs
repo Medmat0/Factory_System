@@ -149,7 +149,35 @@ namespace Factory_System
                 Console.WriteLine($"{vaisseauOb.Value} {vaisseauOb.Key}");
             }
         }
+
+
+
+
+        public bool VerifyStockCommand(string[] args)
+        {
+            foreach (string arg in args)
+            {
+                bool found = false;
+                foreach (Vaisseau vaisseau in AvailableVaisseaux)
+                {
+                    if (vaisseau.Name == arg)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+
+                    return false;
+                }
+            }
+            return true;
+        }
     }
+
+
+        
 
    
 
