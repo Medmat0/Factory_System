@@ -43,6 +43,14 @@ namespace Factory_System
             {
                 stockManager.DisplayStocks();
             }
+            else if (commandParts.Length >= 2 && commandParts[0] == "PRODUCE")
+            {
+                string[] args = commandParts.Skip(1).ToArray();
+                if (stockManager.ProduceCommand(args))
+                {
+                    Console.WriteLine("STOCK_UPDATED");
+                }
+            }
             else
             {
                 Console.WriteLine("Invalid command.");
