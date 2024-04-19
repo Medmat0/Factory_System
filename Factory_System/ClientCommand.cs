@@ -166,30 +166,33 @@ namespace Factory_System
             switch (instruction)
             {
                 case "VERIFY":
+                    string[] parts3 = command.Split(',');
 
-                    if (instructionParts.Length < 2)
+                    string[] firstPart3 = parts3[0].Split(' ');
+                    if (firstPart3.Length != 3 || !int.TryParse(firstPart3[1], out int quantity01))
                     {
                         Console.WriteLine("Invalid command.");
                         return;
                     }
 
-                    Dictionary<string, int> vaisseauxQuantitesVerify = new Dictionary<string, int>();
+                    string vaisseauName3 = firstPart3[2];
 
-                    // Analyser chaque partie de la commande pour extraire les vaisseaux et leurs quantités
-                    for (int i = 1; i < instructionParts.Length; i++)
+                    Dictionary<string, int> vaisseauxQuantites4 = new Dictionary<string, int>();
+                    vaisseauxQuantites4[vaisseauName3] = quantity01;
+
+                    for (int i = 1; i < parts3.Length; i++)
                     {
-                        string[] vaisseauInfo = instructionParts[i].Split(' ');
-
-                        if (vaisseauInfo.Length != 2 || !int.TryParse(vaisseauInfo[0], out int quantity0))
+                        string[] vaisseauPart = parts3[i].Trim().Split(' ');
+                        if (vaisseauPart.Length != 2 || !int.TryParse(vaisseauPart[0], out int vaisseauQuantity4))
                         {
                             Console.WriteLine("Invalid command.");
                             return;
                         }
 
-                        vaisseauxQuantitesVerify[vaisseauInfo[1]] = quantity0;
+                        vaisseauxQuantites4[vaisseauPart[1]] = vaisseauQuantity4;
                     }
 
-                    if (stockManager.VerifyStockCommand(vaisseauxQuantitesVerify))
+                    if (stockManager.VerifyStockCommand(vaisseauxQuantites4))
                     {
                         Console.WriteLine("AVAILABLE");
                     }
