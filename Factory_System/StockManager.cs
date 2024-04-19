@@ -70,16 +70,14 @@ namespace Factory_System
             Dictionary<string, int> pieceQuantities = new Dictionary<string, int>();
             Dictionary<string, int> vaisseauQuantities = new Dictionary<string, int>();
 
-            // Compter le nombre de chaque pièce dans PiecesInStock
             foreach (var piece in PiecesInStock)
             {
                 if (!pieceQuantities.ContainsKey(piece.Name))
                     pieceQuantities[piece.Name] = 0;
 
-                pieceQuantities[piece.Name] += piece.Quantity; // Correction ici
+                pieceQuantities[piece.Name] += piece.Quantity;
             }
 
-            // Compter le nombre de chaque vaisseau dans AvailableVaisseaux
             foreach (var vaisseau in AvailableVaisseaux)
             {
                 if (!vaisseauQuantities.ContainsKey(vaisseau.Name))
@@ -88,7 +86,6 @@ namespace Factory_System
                 vaisseauQuantities[vaisseau.Name]++;
             }
 
-            // Afficher les vaisseaux avec leurs quantités
             foreach (var kvp in vaisseauQuantities)
             {
                 Console.WriteLine($"{kvp.Value} {kvp.Key}");
@@ -103,14 +100,17 @@ namespace Factory_System
 
 
 
-        public void DisplayNeededStocks(string[] args)
+        public void DisplayNeededStocks(Dictionary<string, int> vaisseauxQuantites)
         {
             Console.WriteLine("Needed pieces :");
 
             Dictionary<string, Dictionary<string, int>> neededStocks = new Dictionary<string, Dictionary<string, int>>();
 
-            foreach (string vaisseauName in args)
+            foreach (var kvp in vaisseauxQuantites)
             {
+                string vaisseauName = kvp.Key;
+                int quantity = kvp.Value;
+
                 foreach (Vaisseau vaisseau in AvailableVaisseaux)
                 {
                     if (vaisseau.Name == vaisseauName)
@@ -123,7 +123,7 @@ namespace Factory_System
                             if (!neededStocks[vaisseauName].ContainsKey(piece.Name))
                                 neededStocks[vaisseauName][piece.Name] = 0;
 
-                            neededStocks[vaisseauName][piece.Name]++;
+                            neededStocks[vaisseauName][piece.Name] += piece.Quantity * quantity;
                         }
                         break;
                     }
@@ -159,68 +159,127 @@ namespace Factory_System
 
 
 
+        // can t handle multiple args in cmd for now , ( 4 vaisseau1 , 3 vaisseau3 ....) 
+        /*   public bool VerifyStockCommand(string[] args)
+           {
+               foreach (string arg in args)
+               {
+                   bool found = false;
+                   foreach (Vaisseau vaisseau in AvailableVaisseaux)
+                   {
+                       if (vaisseau.Name == arg)
+                       {
 
-        public bool VerifyStockCommand(string[] args)
+                           found = true;
+                           foreach (Piece piece in vaisseau.Pieces)
+                           {
+                               Piece stockPiece = PiecesInStock.Find(p => p.Name == piece.Name);
+                               if (stockPiece == null || stockPiece.Quantity < piece.Quantity)
+                               {
+                                   return false;
+                               }
+                               else
+                               {
+                                   return true;
+                               }
+                           }
+
+
+                       }
+                   }
+                   if (!found)
+                   {
+                       return false;
+                   }
+               }
+               return true;
+           }
+
+           */
+        public bool VerifyStockCommand(Dictionary<string, int> vaisseauxQuantites)
         {
-            foreach (string arg in args)
+            Dictionary<string, int> totalPieceRequirements = new Dictionary<string, int>();
+
+            foreach (var kvp in vaisseauxQuantites)
             {
+                string vaisseauName = kvp.Key;
+                int quantity = kvp.Value;
+
                 bool found = false;
                 foreach (Vaisseau vaisseau in AvailableVaisseaux)
                 {
-                    if (vaisseau.Name == arg)
+                    if (vaisseau.Name == vaisseauName)
                     {
                         found = true;
+                        foreach (Piece piece in vaisseau.Pieces)
+                        {
+                            if (!totalPieceRequirements.ContainsKey(piece.Name))
+                                totalPieceRequirements[piece.Name] = 0;
+
+                            totalPieceRequirements[piece.Name] += piece.Quantity * quantity;
+                        }
                         break;
                     }
                 }
                 if (!found)
                 {
+                    Console.WriteLine($"ERROR: Vaisseau '{vaisseauName}' n'est pas reconnu");
                     return false;
                 }
             }
+
+            foreach (var kvp in totalPieceRequirements)
+            {
+                Piece stockPiece = PiecesInStock.Find(p => p.Name == kvp.Key);
+                if (stockPiece == null || stockPiece.Quantity < kvp.Value)
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
-
-        public bool ProduceCommand(string[] args)
+        public bool ProduceCommand(Dictionary<string, int> vaisseauxQuantites)
         {
-            foreach (string arg in args)
+            foreach (var kvp in vaisseauxQuantites)
             {
+                string vaisseauName = kvp.Key;
+                int quantity = kvp.Value;
+
                 bool found = false;
                 foreach (Vaisseau vaisseau in AvailableVaisseaux)
                 {
-                    if (vaisseau.Name == arg)
+                    if (vaisseau.Name == vaisseauName)
                     {
                         found = true;
 
-                        Console.WriteLine($"PRODUCING {vaisseau.Name}");
+                        Console.WriteLine($"PRODUCING {quantity} {vaisseau.Name}");
 
                         foreach (Piece piece in vaisseau.Pieces)
                         {
                             Piece stockPiece = PiecesInStock.Find(p => p.Name == piece.Name);
-                            if (stockPiece == null || stockPiece.Quantity < piece.Quantity)
+                            if (stockPiece == null || stockPiece.Quantity < piece.Quantity * quantity)
                             {
-                                Console.WriteLine($"ERROR: Stock insuffisant pour produire {vaisseau.Name}");
+                                Console.WriteLine($"ERROR: Stock insuffisant pour produire {quantity} {vaisseau.Name}");
                                 return false;
                             }
                             else
                             {
-                                Console.WriteLine($"GET_OUT_STOCK {piece.Quantity} {piece.Name}");
-                                stockPiece.Quantity -= piece.Quantity;
+                                Console.WriteLine($"GET_OUT_STOCK {piece.Quantity * quantity} {piece.Name}");
+                                stockPiece.Quantity -= piece.Quantity * quantity;
                             }
                         }
 
                         foreach (Piece piece in vaisseau.Pieces)
                         {
-                            Console.WriteLine($"ASSEMBLE {vaisseau.Name}_{piece.Name} {piece.Name}");
+                            Console.WriteLine($"ASSEMBLE {quantity} {vaisseau.Name}_{piece.Name} {piece.Name}");
                         }
-
-                        Console.WriteLine($"FINISHED {vaisseau.Name}");
 
                         Piece stockVaisseau = PiecesInStock.Find(p => p.Name == vaisseau.Name);
                         if (stockVaisseau != null)
                         {
-                            stockVaisseau.Quantity--;
+                            stockVaisseau.Quantity -= quantity;
                         }
                         else
                         {
@@ -234,14 +293,14 @@ namespace Factory_System
 
                 if (!found)
                 {
-                    Console.WriteLine($"ERROR: Vaisseau '{arg}' n'est pas reconnu");
+                    Console.WriteLine($"ERROR: Vaisseau '{vaisseauName}' n'est pas reconnu");
                     return false;
                 }
             }
 
-            Console.WriteLine("STOCK_UPDATED");
             return true;
         }
+
 
 
 
