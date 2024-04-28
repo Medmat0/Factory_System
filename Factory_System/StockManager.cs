@@ -37,21 +37,22 @@ namespace Factory_System
         }),
         new Vaisseau("Speeder", new List<Piece>
         {
-            new Piece("Hull_HS1", 6),
+            new Piece("Hull_HS1", 1),
             new Piece("Engine_ES1", 2),
             new Piece("Wings_WS1", 1),
-            new Piece("Thruster_TS1", 6)
+            new Piece("Thruster_TS1", 2)
         }),
         new Vaisseau("Cargo", new List<Piece>
         {
-            new Piece("Hull_HC1", 6),
+            new Piece("Hull_HC1", 1),
             new Piece("Engine_EC1", 1),
-            new Piece("Wings_WC1", 5),
-            new Piece("Thruster_TC1", 10)
+            new Piece("Wings_WC1", 1),
+            new Piece("Thruster_TC1", 1)
         })
     };
 
-
+        // add builder design  for vaisseau  : Exemple  cargo.withHull_HC1()
+        //                                                   .withEngine()  .... 
 
 
         public StockManager()
@@ -157,7 +158,8 @@ namespace Factory_System
             }
         }
 
-
+        // instruction c'est le logique de produce , les noms d' assemblage des peices c'est a nous de gere 
+        // produce c'est juste 2 sortie , si y'a le stocks -> updateStock  sinon Error Message
 
         // can t handle multiple args in cmd for now , ( 4 vaisseau1 , 3 vaisseau3 ....) 
         /*   public bool VerifyStockCommand(string[] args)
@@ -240,7 +242,7 @@ namespace Factory_System
             return true;
         }
 
-        public bool ProduceCommand(Dictionary<string, int> vaisseauxQuantites)
+        public bool InstructionsCommand(Dictionary<string, int> vaisseauxQuantites)
         {
             foreach (var kvp in vaisseauxQuantites)
             {
@@ -256,36 +258,25 @@ namespace Factory_System
 
                         Console.WriteLine($"PRODUCING {quantity} {vaisseau.Name}");
 
-                        foreach (Piece piece in vaisseau.Pieces)
-                        {
-                            Piece stockPiece = PiecesInStock.Find(p => p.Name == piece.Name);
-                            if (stockPiece == null || stockPiece.Quantity < piece.Quantity * quantity)
-                            {
-                                Console.WriteLine($"ERROR: Stock insuffisant pour produire {quantity} {vaisseau.Name}");
-                                return false;
-                            }
-                            else
-                            {
-                                Console.WriteLine($"GET_OUT_STOCK {piece.Quantity * quantity} {piece.Name}");
-                                stockPiece.Quantity -= piece.Quantity * quantity;
-                            }
-                        }
+                        // Liste pour stocker les assemblages temporaires
+                        List<string> assemblies = new List<string>();
 
                         foreach (Piece piece in vaisseau.Pieces)
                         {
-                            Console.WriteLine($"ASSEMBLE {quantity} {vaisseau.Name}_{piece.Name} {piece.Name}");
+                            assemblies.Add(piece.Name);
                         }
 
-                        Piece stockVaisseau = PiecesInStock.Find(p => p.Name == vaisseau.Name);
-                        if (stockVaisseau != null)
+                        string previousAssembly = null;
+                        for (int i = 0; i < assemblies.Count; i++)
                         {
-                            stockVaisseau.Quantity -= quantity;
+                            string currentPiece = assemblies[i];
+                            string currentAssembly = previousAssembly != null ? $"{previousAssembly} {currentPiece}" : currentPiece;
+                            string assemblyName = $"TMP{i + 1}";
+                            Console.WriteLine($"ASSEMBLE {assemblyName} {currentAssembly}");
+                            previousAssembly = assemblyName;
                         }
-                        else
-                        {
-                            Console.WriteLine($"ERROR: Impossible de mettre à jour le stock pour {vaisseau.Name}");
-                            return false;
-                        }
+
+                        Console.WriteLine($"FINISHED {vaisseau.Name}");
 
                         break;
                     }
@@ -300,6 +291,52 @@ namespace Factory_System
 
             return true;
         }
+
+        public bool ProduceCommand(Dictionary<string, int> vaisseauxQuantites)
+        {
+            foreach (var kvp in vaisseauxQuantites)
+            {
+                string vaisseauName = kvp.Key;
+                int quantity = kvp.Value;
+
+                bool found = false;
+                foreach (Vaisseau vaisseau in AvailableVaisseaux)
+                {
+                    if (vaisseau.Name == vaisseauName)
+                    {
+                        found = true;
+
+                        // Produire les vaisseaux
+                        foreach (Piece piece in vaisseau.Pieces)
+                        {
+                            Piece stockPiece = PiecesInStock.Find(p => p.Name == piece.Name);
+                            if (stockPiece != null)
+                            {
+                                stockPiece.Quantity -= piece.Quantity * quantity;
+                            }
+                        }
+
+
+                        break;
+                    }
+                }
+
+
+                if (!found)
+                {
+                    Console.WriteLine($"ERROR: Vaisseau '{vaisseauName}' n'est pas reconnu");
+                    return false;
+                }else
+                {
+                    Console.WriteLine("STOCK_UPDATED");
+
+                }
+            }
+
+            return true;
+        }
+
+
 
 
 

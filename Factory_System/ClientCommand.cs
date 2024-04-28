@@ -263,8 +263,37 @@ namespace Factory_System
 
                         vaisseauxQuantites[vaisseauPart[1]] = vaisseauQuantity4;
                     }
-
                     stockManager.ProduceCommand(vaisseauxQuantites);
+                    break;
+
+                case "INSTRUCTIONS":
+                    string[] parts6 = command.Split(',');
+
+                    string[] firstPart6 = parts6[0].Split(' ');
+                    if (firstPart6.Length != 3 || !int.TryParse(firstPart6[1], out int quantity6))
+                    {
+                        Console.WriteLine("Invalid command.");
+                        return;
+                    }
+
+                    string vaisseauName6 = firstPart6[2];
+
+                    Dictionary<string, int> vaisseauxQuantites6 = new Dictionary<string, int>();
+                    vaisseauxQuantites6[vaisseauName6] = quantity6;
+
+                    for (int i = 1; i < parts6.Length; i++)
+                    {
+                        string[] vaisseauPart = parts6[i].Trim().Split(' ');
+                        if (vaisseauPart.Length != 2 || !int.TryParse(vaisseauPart[0], out int vaisseauQuantity4))
+                        {
+                            Console.WriteLine("Invalid command.");
+                            return;
+                        }
+
+                        vaisseauxQuantites6[vaisseauPart[1]] = vaisseauQuantity4;
+                    }
+
+                    stockManager.InstructionsCommand(vaisseauxQuantites6);
                         
                     break;
 
