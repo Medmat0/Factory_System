@@ -1,39 +1,37 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-namespace Factory_System
+namespace Factory_System;
+
+
+internal class Program
 {
-    internal class Program
+    private static void Main(string[] args)
     {
-        static void Main(string[] args)
+        try
         {
-            try
+            var database = Singleton<Database>.Instance;
+            var cookBook = Singleton<CookBook>.Instance;
+
+
+            Console.WriteLine("Welcome the factory vaissaux : \n");
+            while (true)
             {
+                Console.WriteLine("Entre your command !");
+                var userInput = Console.ReadLine();
 
-                StockManager stockManager = new StockManager();
-                ClientCommand commandClient = new ClientCommand(stockManager);
-
-
-                Console.WriteLine("Welcome the factory vaissaux : \n");
-                while (true)
+                if (!string.IsNullOrEmpty(userInput))
                 {
-                    Console.WriteLine("Entre your command !");
-                    string userInput = Console.ReadLine();
-
-                    if (!string.IsNullOrEmpty(userInput))
-                    {
-                        commandClient.ProcessCommand(userInput);
-                    }
-                    else
-                    {
-                        Console.WriteLine("You must enter a command.");
-                    }
+                    
+                }
+                else
+                {
+                    Console.WriteLine("You must enter a command.");
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
-            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
         }
     }
-
 }
