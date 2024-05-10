@@ -2,17 +2,12 @@
 
 namespace Factory_System;
 
-
 internal class Program
 {
     private static void Main(string[] args)
     {
         try
         {
-            var database = Singleton<Database>.Instance;
-            var cookBook = Singleton<CookBook>.Instance;
-
-
             Console.WriteLine("Welcome the factory vaissaux : \n");
             while (true)
             {
@@ -20,13 +15,9 @@ internal class Program
                 var userInput = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(userInput))
-                {
-                    
-                }
+                    new Run(userInput).Try();
                 else
-                {
                     Console.WriteLine("You must enter a command.");
-                }
             }
         }
         catch (Exception ex)

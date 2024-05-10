@@ -1,4 +1,4 @@
-namespace Factory_System;
+namespace Factory_System.structure.piece;
 
 public enum Wing
 {

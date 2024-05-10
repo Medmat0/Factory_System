@@ -1,11 +1,16 @@
-namespace Factory_System;
+using Factory_System.structure.data;
+using Factory_System.structure.@enum;
+using Factory_System.structure.piece;
+
+namespace Factory_System.singleton;
 
 public class CookBook
 {
-    private List<StarShipStruct> ListStarShipStructs { get;  } =
+    private List<StarShipStruct> ListStarShipStructs { get; } =
     [
         new StarShipStruct(
             "Explorer",
+            StartShipName.Explorer,
             Wing.Wings_WE1,
             Thruster.Thruster_TE1,
             Engine.Engine_EE1,
@@ -14,6 +19,7 @@ public class CookBook
 
         new StarShipStruct(
             "Speeder",
+            StartShipName.Speeder,
             Wing.Wings_WS1,
             Thruster.Thruster_TS1,
             Engine.Engine_ES1,
@@ -22,6 +28,7 @@ public class CookBook
 
         new StarShipStruct(
             "Cargo",
+            StartShipName.Cargo,
             Wing.Wings_WC1,
             Thruster.Thruster_TC1,
             Engine.Engine_EC1,
@@ -33,10 +40,17 @@ public class CookBook
     public StarShipStruct? GetOneStarShipWithName(string name)
     {
         var index = ListStarShipStructs.FindIndex(s => s.Name == name);
-        if (index >= 0) {
-            return ListStarShipStructs[index];
-        }
+        if (index >= 0) return ListStarShipStructs[index];
 
         return null;
+    }
+
+    public StarShipStruct GetStarShipsWithEnum(StartShipName startShipName)
+    {
+        var starShips = ListStarShipStructs.Where(s => s.StartShipName == startShipName).ToList();
+        if (starShips.Count > 0)
+            return starShips.First();
+
+        throw new Exception("Not found in cookbook");
     }
 }

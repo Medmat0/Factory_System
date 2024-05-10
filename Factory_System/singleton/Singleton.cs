@@ -1,4 +1,4 @@
-namespace Factory_System;
+namespace Factory_System.singleton;
 
 public class Singleton<T> where T : new()
 {
