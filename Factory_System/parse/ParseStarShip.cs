@@ -19,12 +19,27 @@ public class ParseStarShip
         var cookbook = Singleton<CookBook>.Instance;
 
         var listShipAndNumber = Args?.Split(",").ToList();
-        for (var i = 0; i < listShipAndNumber?.Count; i++)
+        if (listShipAndNumber == null || listShipAndNumber.Count == 0)
+        {
+            throw new ArgumentException("Arguments are either null or empty. Please provide valid input.");
+        }
+
+        for (var i = 0; i < listShipAndNumber.Count; i++)
         {
             var numberAndShip = listShipAndNumber[i].Trim().Split(" ");
-            if (numberAndShip.Length != 2) throw new Exception("failed to parse");
+            if (numberAndShip.Length != 2)
+            {
+                throw new ArgumentException($"Invalid argument format at position {i}. Expected format: 'number shipName'.");
+            }
+
             var starShip = cookbook.GetOneStarShipWithName(numberAndShip[1].Trim());
-            if (starShip == null) throw new Exception("failed to find a starship");
+            if (starShip == null)
+            {
+                // Log the error and continue for dont stop the process
+                Console.WriteLine($"Warning: Starship '{numberAndShip[1].Trim()}' not found in the cookbook. Skipping this entry.");
+                continue;
+            }
+
             try
             {
                 var numbVal = int.Parse(numberAndShip[0].Trim());
@@ -32,12 +47,13 @@ public class ParseStarShip
             }
             catch (FormatException)
             {
-                throw new Exception("failed to parse into int");
+                throw new FormatException($"Failed to parse '{numberAndShip[0].Trim()}' into an integer at position {i}. Please provide a valid number.");
             }
         }
 
         return true;
     }
+
 
     private void AddStartShip(StarShipStruct starShipStruct, int number)
     {

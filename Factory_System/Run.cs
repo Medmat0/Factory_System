@@ -20,9 +20,22 @@ public class Run
             var verification = command.SplitIntoCommandAndArgs().VerifyByCommand();
             new CommandRunBuilder(verification.CommandAndArgs).Run();
         }
-        catch (Exception e)
+        catch (ArgumentException ex)
         {
-            Console.WriteLine($"ERROR {e.Message}");
+            Console.WriteLine($"Argument error: {ex.Message}");
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Invalid operation: {ex.Message}");
+        }
+        catch (KeyNotFoundException ex)
+        {
+            Console.WriteLine($"Key not found: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
         }
     }
+
 }

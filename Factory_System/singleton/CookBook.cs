@@ -47,10 +47,15 @@ public class CookBook
 
     public StarShipStruct GetStarShipsWithEnum(StartShipName startShipName)
     {
-        var starShips = ListStarShipStructs.Where(s => s.StartShipName == startShipName).ToList();
-        if (starShips.Count > 0)
-            return starShips.First();
+        var starShip = ListStarShipStructs.FirstOrDefault(s => s.StartShipName == startShipName);
 
-        throw new Exception("Not found in cookbook");
+        if (starShip.Equals(default(StarShipStruct)))
+        {
+            throw new KeyNotFoundException($"Starship with name '{startShipName}' not found in the cookbook.");
+        }
+
+        return starShip;
     }
+
+
 }

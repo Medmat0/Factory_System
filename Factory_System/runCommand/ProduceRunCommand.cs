@@ -19,8 +19,13 @@ public class ProduceRunCommand : ICommandRun
 
     public void Run()
     {
-        var numberOfPieces = NumberPiece();
-        if (!numberOfPieces) throw new Exception("Error in Conception");
+        bool numberOfPieces = NumberPiece();
+
+        if (!numberOfPieces)
+        {
+            throw new InvalidOperationException("Error in Conception: the number of pieces is invalid or could not be determined.");
+        }
+
         BuildStarShip();
     }
 

@@ -16,13 +16,13 @@ public class CommandValidation(string command)
     {
         var commandAll = Command.Split(new[] { ' ' }, 2);
         var commandEnum = FindEnumValue(commandAll.First().Trim());
-        string? args;
-        if (commandAll.Length == 1 || commandAll[1].Trim() == "")
-            args = null;
-        else
-            args = commandAll[1];
 
-        if (commandEnum == null) throw new Exception("Is not a Command");
+        if (commandEnum == null)
+        {
+            throw new ArgumentException($"'{commandAll.First().Trim()}' is not a valid command.");
+        }
+
+        string? args = commandAll.Length > 1 && !string.IsNullOrWhiteSpace(commandAll[1]) ? commandAll[1].Trim() : null;
 
         CommandAndArgs = new CommandAndArgs(commandEnum.Value, args);
         return this;
@@ -63,7 +63,7 @@ public class CommandValidation(string command)
                 verifyValidation.Validation();
                 break;
             case CommandEnum.Instructions:
-                throw new Exception("Is not implemented");
+                throw new Exception("Is not implemented");//TODO: implement
         }
 
         return this;

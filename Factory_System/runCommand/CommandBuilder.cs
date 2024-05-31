@@ -9,6 +9,11 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
 
     public void Run()
     {
+        if (CommandAndArgs.CommandEnum == 0 && CommandAndArgs.Args == null)
+        {
+            throw new InvalidOperationException("CommandAndArgs is not initialized.");
+        }
+
         switch (CommandAndArgs.CommandEnum)
         {
             case CommandEnum.Verify:
@@ -30,7 +35,9 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
                 produce.Run();
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(CommandAndArgs.CommandEnum), CommandAndArgs.CommandEnum, "Unknown command.");
         }
     }
+
+
 }
