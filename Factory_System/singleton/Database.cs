@@ -1,11 +1,12 @@
+using Factory_System.Model.piece;
 using Factory_System.structure.data;
-using Factory_System.structure.piece;
 
 namespace Factory_System.singleton;
 
 public class Database
 {
     public List<StarShipStruct> StarShipStructs { get; } = new();
+
 
     public Dictionary<string, StructAssembly> Assemblies { get; } = new();
 
@@ -26,10 +27,7 @@ public class Database
                     new StarShipStruct(
                         starShipStruct.Name,
                         starShipStruct.StartShipName,
-                        starShipStruct.Wing,
-                        starShipStruct.Thruster,
-                        starShipStruct.Engine,
-                        starShipStruct.Hull,
+                        starShipStruct.Pieces,
                         number + 1
                     )
                 );
@@ -53,10 +51,7 @@ public class Database
                     new StarShipStruct(
                         starShipStruct.Name,
                         starShipStruct.StartShipName,
-                        starShipStruct.Wing,
-                        starShipStruct.Thruster,
-                        starShipStruct.Engine,
-                        starShipStruct.Hull,
+                        starShipStruct.Pieces,
                         number + starShipStruct.Number
                     )
                 );

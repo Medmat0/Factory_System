@@ -1,6 +1,7 @@
+using Factory_System.Model.@enum;
+using Factory_System.Model.piece;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.parse;
 
@@ -63,10 +64,7 @@ public class ParseStarShip
             StarShipStructs[starShipStruct.StartShipName] = new StarShipStruct(
                 starShipStruct.Name,
                 starShipStruct.StartShipName,
-                starShipStruct.Wing,
-                starShipStruct.Thruster,
-                starShipStruct.Engine,
-                starShipStruct.Hull,
+                starShipStruct.Pieces,
                 numberActually + number
             );
             return;
@@ -75,10 +73,7 @@ public class ParseStarShip
         StarShipStructs[starShipStruct.StartShipName] = new StarShipStruct(
             starShipStruct.Name,
             starShipStruct.StartShipName,
-            starShipStruct.Wing,
-            starShipStruct.Thruster,
-            starShipStruct.Engine,
-            starShipStruct.Hull,
+            starShipStruct.Pieces,
             number
         );
     }

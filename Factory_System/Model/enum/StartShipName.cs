@@ -1,4 +1,4 @@
-namespace Factory_System.structure.@enum;
+namespace Factory_System.Model.@enum;
 
 public enum StartShipName
 {

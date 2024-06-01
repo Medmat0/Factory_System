@@ -1,39 +1,39 @@
-using Factory_System.structure.@enum;
-using Factory_System.structure.piece;
+using Factory_System.Model;
+using Factory_System.Model.@enum;
+using Factory_System.Model.piece;
 
 namespace Factory_System.structure.data;
 
 public readonly struct StarShipStruct
 {
-    public StarShipStruct(string name, StartShipName startShipName, Wing wing, Thruster thruster, Engine engine,
-        Hull hull, int number)
+    public StarShipStruct(string name, StartShipName startShipName, List<Piece> pieces, int number)
     {
+        if (pieces.Count >= 4)
+        {
+            throw new ArgumentException("A StarShipStruct can only have 4 pieces or less. ");
+        }
         Name = name;
         StartShipName = startShipName;
-        Engine = engine;
-        Wing = wing;
-        Thruster = thruster;
-        Hull = hull;
+        Pieces = pieces;
         Number = number;
     }
 
-    public StarShipStruct(string name, StartShipName startShipName, Wing wing, Thruster thruster, Engine engine,
-        Hull hull)
+    public StarShipStruct(string name, StartShipName startShipName, List<Piece> pieces)
     {
+        if (pieces.Count >= 4) {
+            throw new ArgumentException("A StarShipStruct can only have 4 pieces or less. ");
+        }
+               
         Name = name;
         StartShipName = startShipName;
-        Engine = engine;
-        Wing = wing;
-        Thruster = thruster;
-        Hull = hull;
+        Pieces = pieces;
         Number = 1;
     }
 
     public string Name { get; }
     public StartShipName StartShipName { get; }
-    public Wing Wing { get; }
-    public Thruster Thruster { get; }
-    public Engine Engine { get; }
-    public Hull Hull { get; }
+    public List<Piece> Pieces { get; }
+
     public int Number { get; }
+
 }

@@ -1,4 +1,4 @@
-namespace Factory_System.structure.piece;
+namespace Factory_System.Model.piece;
 
 public enum Hull
 {

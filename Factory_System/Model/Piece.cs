@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Factory_System.Model
 {
-    internal class Piece
+    public class Piece
     {
-        public string Name { get; set; }
+        public Enum Name { get; set; }
         public int Quantity { get; set; }
 
-        public Piece(string name, int quantity)
+        public Piece(Enum name, int quantity)
         {
             Name = name;
             Quantity = quantity;

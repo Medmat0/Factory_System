@@ -1,40 +1,50 @@
+using Factory_System.Model.@enum;
+using Factory_System.Model.piece;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
-using Factory_System.structure.piece;
 
 namespace Factory_System.singleton;
 
 public class CookBook
 {
-    private List<StarShipStruct> ListStarShipStructs { get; } =
+    public List<StarShipStruct> ListStarShipStructs { get; } =
     [
         new StarShipStruct(
             "Explorer",
             StartShipName.Explorer,
-            Wing.Wings_WE1,
-            Thruster.Thruster_TE1,
-            Engine.Engine_EE1,
-            Hull.Hull_HE1
+            new List<Model.Piece>
+            {
+                new Model.Piece(Wing.Wings_WE1, 1),
+                new Model.Piece(Thruster.Thruster_TE1, 1),
+                new Model.Piece(Engine.Engine_EE1, 1),
+                new Model.Piece(Hull.Hull_HE1, 1)
+            }
         ),
 
         new StarShipStruct(
             "Speeder",
             StartShipName.Speeder,
-            Wing.Wings_WS1,
-            Thruster.Thruster_TS1,
-            Engine.Engine_ES1,
-            Hull.Hull_HS1
+            new List<Model.Piece>
+            {
+                new Model.Piece(Wing.Wings_WS1, 1),
+                new Model.Piece(Thruster.Thruster_TS1, 2),
+                new Model.Piece(Engine.Engine_ES1, 1),
+                new Model.Piece(Hull.Hull_HS1, 1)
+            }
         ),
 
         new StarShipStruct(
             "Cargo",
             StartShipName.Cargo,
-            Wing.Wings_WC1,
-            Thruster.Thruster_TC1,
-            Engine.Engine_EC1,
-            Hull.Hull_HC1
+            new List<Model.Piece>
+            {
+                new Model.Piece(Wing.Wings_WC1, 1),
+                new Model.Piece(Thruster.Thruster_TC1, 1),
+                new Model.Piece(Engine.Engine_EC1, 1),
+                new Model.Piece(Hull.Hull_HC1, 1)
+            }
         )
     ];
+
 
 
     public StarShipStruct? GetOneStarShipWithName(string name)

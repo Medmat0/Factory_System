@@ -2,7 +2,7 @@
   "profiles": {
     "Factory_System_MAC_ARI": {
       "commandName": "Project",
-      "workingDirectory": "/Users/aristidefumo/Documents/school/pattern/Factory_System"
+      "workingDirectory": "C:\\Users\\Nourdine Arbaoui\\source\\repos\\Factory_System"
     },
     "Factory_System_Windows": {
       "commandName": "Project",

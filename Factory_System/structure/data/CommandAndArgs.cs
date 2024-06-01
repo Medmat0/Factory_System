@@ -1,4 +1,4 @@
-using Factory_System.structure.@enum;
+using Factory_System.Model.@enum;
 
 namespace Factory_System.structure.data;
 

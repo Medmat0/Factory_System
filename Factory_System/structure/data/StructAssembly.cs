@@ -1,5 +1,5 @@
 using System.Reflection;
-using Factory_System.structure.piece;
+using Factory_System.Model.piece;
 
 namespace Factory_System.structure.data;
 

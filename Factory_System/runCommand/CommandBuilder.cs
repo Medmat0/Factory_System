@@ -1,5 +1,5 @@
+using Factory_System.Model.@enum;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.runCommand;
 
@@ -29,6 +29,7 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
                 need.Run();
                 break;
             case CommandEnum.Instructions:
+                var instructions = new InstructionsRunCommand(CommandAndArgs.Args);
                 break;
             case CommandEnum.Produce:
                 var produce = new ProduceRunCommand(CommandAndArgs.Args);

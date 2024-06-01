@@ -1,7 +1,7 @@
+using Factory_System.Model.@enum;
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.runCommand;
 
@@ -19,10 +19,10 @@ public class NeededStocksRunCommand : ICommandRun
 
     public void Run()
     {
-        AddInDatabase();
-        ViewInConsole();
+        //AddInDatabase();
+        //ViewInConsole();
     }
-
+    /*
     private void AddInDatabase()
     {
         foreach (var starShipStruct in StarShipStructs)
@@ -62,5 +62,5 @@ public class NeededStocksRunCommand : ICommandRun
         }
 
         Console.Write(content);
-    }
+    }*/
 }

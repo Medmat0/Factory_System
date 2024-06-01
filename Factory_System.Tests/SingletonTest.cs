@@ -1,8 +1,7 @@
 using System;
+using Factory_System.Model.piece;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
-using Factory_System.structure.piece;
 using Factory_System.validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

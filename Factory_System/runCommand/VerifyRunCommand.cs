@@ -1,7 +1,7 @@
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
+using Factory_System.Model.@enum;
 
 namespace Factory_System.runCommand;
 
@@ -28,7 +28,7 @@ public class VerifyRunCommand : ICommandRun
     {
         foreach (var (_, starShipStruct) in StarShipStructs)
         {
-            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Engine)) return false;
+            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Pieces.ForEach()) return false;
             if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Hull)) return false;
             if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Thruster)) return false;
             if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Wing)) return false;

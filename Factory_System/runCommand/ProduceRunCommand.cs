@@ -1,7 +1,8 @@
+using Factory_System.Model.@enum;
+using Factory_System.Model.piece;
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.runCommand;
 
@@ -31,9 +32,11 @@ public class ProduceRunCommand : ICommandRun
 
     private bool NumberPiece()
     {
+
+        StartShipName startShipName = StarShipStructs.First().Value.StartShipName;
         foreach (var (_, starShipStruct) in StarShipStructs)
         {
-            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Engine)) return false;
+            if (starShipStruct.Number >= Database) return false;
             if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Hull)) return false;
             if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Thruster)) return false;
             if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Wing)) return false;

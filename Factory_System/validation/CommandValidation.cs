@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Runtime.Serialization;
+using Factory_System.Model.@enum;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.validation;
 
