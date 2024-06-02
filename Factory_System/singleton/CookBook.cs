@@ -6,38 +6,32 @@ namespace Factory_System.singleton;
 
 public class CookBook
 {
-    private List<StarShipStruct> ListStarShipStructs { get; } =
+    private List<StartShip> ListStarShipStructs { get; } =
     [
-        new StarShipStruct(
-            "Explorer",
-            StartShipName.Explorer,
-            Wing.Wings_WE1,
-            Thruster.Thruster_TE1,
-            Engine.Engine_EE1,
-            Hull.Hull_HE1
-        ),
-
-        new StarShipStruct(
-            "Speeder",
-            StartShipName.Speeder,
-            Wing.Wings_WS1,
-            Thruster.Thruster_TS1,
-            Engine.Engine_ES1,
-            Hull.Hull_HS1
-        ),
-
-        new StarShipStruct(
-            "Cargo",
-            StartShipName.Cargo,
-            Wing.Wings_WC1,
-            Thruster.Thruster_TC1,
-            Engine.Engine_EC1,
-            Hull.Hull_HC1
-        )
+        new StarShipBuilder()
+            .name("Explorer")
+            .addEngine(Engine.Engine_EE1)
+            .addHull(Hull.Hull_HE1)
+            .addWings(Wing.Wings_WE1)
+            .addThrusters(Thruster.Thruster_TE1)
+            .build(),
+        new StarShipBuilder()
+            .name("Speeder")
+            .addEngine(Engine.Engine_ES1)
+            .addHull(Hull.Hull_HS1)
+            .addWings(Wing.Wings_WS1)
+            .addThrusters(Thruster.Thruster_TS1, 2)
+            .build(),
+        new StarShipBuilder()
+            .name("Speeder")
+            .addEngine(Engine.Engine_ES1)
+            .addHull(Hull.Hull_HS1)
+            .addWings(Wing.Wings_WS1)
+            .addThrusters(Thruster.Thruster_TS1)
+            .build()
     ];
 
-
-    public StarShipStruct? GetOneStarShipWithName(string name)
+    public StartShip? GetOneStarShipWithName(string name)
     {
         var index = ListStarShipStructs.FindIndex(s => s.Name == name);
         if (index >= 0) return ListStarShipStructs[index];
@@ -45,12 +39,13 @@ public class CookBook
         return null;
     }
 
-    public StarShipStruct GetStarShipsWithEnum(StartShipName startShipName)
+    public StartShip GetStarShipsWithEnum(StartShipName startShipName)
     {
-        var starShips = ListStarShipStructs.Where(s => s.StartShipName == startShipName).ToList();
-        if (starShips.Count > 0)
-            return starShips.First();
+        var starShip = ListStarShipStructs.FirstOrDefault(s => s.StartShipName == startShipName);
 
-        throw new Exception("Not found in cookbook");
+        if (starShip == null)
+            throw new KeyNotFoundException($"Starship with name '{startShipName}' not found in the cookbook.");
+
+        return starShip;
     }
 }

@@ -1,8 +1,10 @@
+using System.Runtime.Serialization;
+
 namespace Factory_System.structure.@enum;
 
 public enum StartShipName
 {
-    Explorer,
-    Speeder,
-    Cargo
+    [EnumMember(Value = "Explorer")] Explorer,
+    [EnumMember(Value = "Speeder")] Speeder,
+    [EnumMember(Value = "Cargo")] Cargo
 }

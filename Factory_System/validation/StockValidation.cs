@@ -1,3 +1,5 @@
+using Factory_System.parse;
+
 namespace Factory_System.validation;
 
 public class StockValidation(string? args) : ICommandValidation
@@ -6,8 +8,8 @@ public class StockValidation(string? args) : ICommandValidation
 
     public bool Validation()
     {
-        if (Args == null) return true;
+        if (Args != null) throw new ArgumentNullException(nameof(Args), "Arguments (Args) must  be null.");
 
-        throw new Exception("une erreur est arrivé");
+        return true;
     }
 }

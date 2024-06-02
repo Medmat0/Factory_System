@@ -11,12 +11,12 @@ public class VerifyRunCommand : ICommandRun
     {
         var temp = new ParseStarShip(args);
         temp.Parse();
-        StarShipStructs = temp.StarShipStructs;
+        StarShips = temp.StartShips;
     }
 
     private Database Database { get; } = Singleton<Database>.Instance;
 
-    private Dictionary<StartShipName, StarShipStruct> StarShipStructs { get; }
+    private Dictionary<StartShipName, StartShip> StarShips { get; }
 
     public void Run()
     {
@@ -26,12 +26,12 @@ public class VerifyRunCommand : ICommandRun
 
     private bool NumberPiece()
     {
-        foreach (var (_, starShipStruct) in StarShipStructs)
+        foreach (var (_, starShip) in StarShips)
         {
-            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Engine)) return false;
-            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Hull)) return false;
-            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Thruster)) return false;
-            if (starShipStruct.Number >= Database.NumberPiece(starShipStruct.Wing)) return false;
+            if (starShip.Engine.NumberPieces() >= Database.NumberPiece(starShip.Engine)) return false;
+            if (starShip.Hull.NumberPieces() >= Database.NumberPiece(starShip.Hull)) return false;
+            if (starShip.Thruster.NumberPieces() >= Database.NumberPiece(starShip.Thruster)) return false;
+            if (starShip.Wings.NumberPieces() >= Database.NumberPiece(starShip.Wings)) return false;
         }
 
         return true;

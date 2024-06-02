@@ -9,7 +9,8 @@ public class NeedStocksValidation(string? args) : ICommandValidation
 
     public bool Validation()
     {
-        if (Args == null) throw new Exception("nos ARGS");
+        if (Args == null) throw new ArgumentNullException(nameof(Args), "Arguments (Args) cannot be null.");
+
         return new ParseStarShip(Args).Parse();
     }
 }

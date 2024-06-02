@@ -1,12 +1,10 @@
+using Factory_System.structure.@enum;
 using Factory_System.structure.piece;
 
 namespace Factory_System.structure.data;
 
-public struct NumberWing
+public class NumberWing : Pieces
 {
-    public int Number { get; }
-    public Wing Wing { get; }
-
     public NumberWing(int number, Wing wing)
     {
         Number = number;
@@ -15,7 +13,39 @@ public struct NumberWing
 
     public NumberWing(Wing wing)
     {
-        Number = 1;
+        Number = 2;
         Wing = wing;
+    }
+
+    public int Number { get; }
+
+    public TypePiece TypePiece { get; } = TypePiece.Wing;
+
+    public Wing Wing { get; }
+
+    public override int NumberPieces()
+    {
+        return Number;
+    }
+
+    public override Pieces WithAddNumber(int number)
+    {
+        return new NumberWing(number + Number, Wing);
+    }
+
+    public override Pieces WithMultiplyNumber(int number)
+    {
+        return new NumberWing(number * Number, Wing);
+    }
+
+
+    public override Pieces WithRemoveNumber(int number)
+    {
+        return new NumberWing(Number - number, Wing);
+    }
+
+    public override string TypePiecePrecise()
+    {
+        return Wing.ToString();
     }
 }

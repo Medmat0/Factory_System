@@ -11,10 +11,10 @@ public class NeededStocksRunCommand : ICommandRun
     {
         var temp = new ParseStarShip(args);
         temp.Parse();
-        StarShipStructs = temp.StarShipStructs;
+        StarShips = temp.StartShips;
     }
 
-    private Dictionary<StartShipName, StarShipStruct> StarShipStructs { get; }
+    private Dictionary<StartShipName, StartShip> StarShips { get; }
     private Database Database { get; } = Singleton<Database>.Instance;
 
     public void Run()
@@ -25,12 +25,12 @@ public class NeededStocksRunCommand : ICommandRun
 
     private void AddInDatabase()
     {
-        foreach (var starShipStruct in StarShipStructs)
+        foreach (var (_, starShip) in StarShips)
         {
-            Database.AddNewPiece(starShipStruct.Value.Thruster, starShipStruct.Value.Number);
-            Database.AddNewPiece(starShipStruct.Value.Engine, starShipStruct.Value.Number);
-            Database.AddNewPiece(starShipStruct.Value.Wing, starShipStruct.Value.Number);
-            Database.AddNewPiece(starShipStruct.Value.Hull, starShipStruct.Value.Number);
+            Database.AddPiece(starShip.Thruster.WithMultiplyNumber(starShip.Number));
+            Database.AddPiece(starShip.Engine.WithMultiplyNumber(starShip.Number));
+            Database.AddPiece(starShip.Hull.WithMultiplyNumber(starShip.Number));
+            Database.AddPiece(starShip.Wings.WithMultiplyNumber(starShip.Number));
         }
     }
 
@@ -39,26 +39,26 @@ public class NeededStocksRunCommand : ICommandRun
     {
         var content = "";
 
-        foreach (var starShipStruct in StarShipStructs)
+        foreach (var (_, starShip) in StarShips)
         {
-            content += $"{starShipStruct.Value.Number} {starShipStruct.Key} :\n";
-            content += $"{starShipStruct.Value.Number} {starShipStruct.Value.Wing}\n";
-            content += $"{starShipStruct.Value.Number} {starShipStruct.Value.Thruster}\n";
-            content += $"{starShipStruct.Value.Number} {starShipStruct.Value.Hull}\n";
-            content += $"{starShipStruct.Value.Number} {starShipStruct.Value.Engine}\n";
+            content += $"{starShip.Number} {starShip.Name}\n";
+            content += $"{starShip.Engine.NumberPieces()} {starShip.Engine.TypePiecePrecise()} :\n";
+            content += $"{starShip.Hull.NumberPieces()} {starShip.Hull.TypePiecePrecise()}\n";
+            content += $"{starShip.Thruster.NumberPieces()} {starShip.Thruster.TypePiecePrecise()}\n";
+            content += $"{starShip.Wings.NumberPieces()} {starShip.Wings.TypePiecePrecise()}\n";
         }
 
         content += "Total :\n";
-        foreach (var starShipStruct in StarShipStructs)
+        foreach (var (_, starShip) in StarShips)
         {
-            var numberPiecesWing = Database.NumberPiece(starShipStruct.Value.Wing);
-            var numberPiecesThruster = Database.NumberPiece(starShipStruct.Value.Thruster);
-            var numberPiecesEngine = Database.NumberPiece(starShipStruct.Value.Engine);
-            var numberPiecesHull = Database.NumberPiece(starShipStruct.Value.Hull);
-            content += $"{numberPiecesWing} {starShipStruct.Value.Wing}\n";
-            content += $"{numberPiecesThruster} {starShipStruct.Value.Thruster}\n";
-            content += $"{numberPiecesHull} {starShipStruct.Value.Hull}\n";
-            content += $"{numberPiecesEngine} {starShipStruct.Value.Engine}\n";
+            var numberPiecesWing = Database.NumberPiece(starShip.Wings);
+            var numberPiecesThruster = Database.NumberPiece(starShip.Thruster);
+            var numberPiecesEngine = Database.NumberPiece(starShip.Engine);
+            var numberPiecesHull = Database.NumberPiece(starShip.Hull);
+            content += $"{numberPiecesWing} {starShip.Wings.TypePiecePrecise()}\n";
+            content += $"{numberPiecesThruster} {starShip.Thruster.TypePiecePrecise()}\n";
+            content += $"{numberPiecesHull} {starShip.Hull.TypePiecePrecise()}\n";
+            content += $"{numberPiecesEngine} {starShip.Engine.TypePiecePrecise()}\n";
         }
 
         Console.Write(content);
