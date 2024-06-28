@@ -1,28 +1,19 @@
-using Factory_System.structure.@enum;
-using Factory_System.structure.piece;
-
 namespace Factory_System.structure.data;
 
-public class StartShip(
-    string name,
-    NumberWing wings,
-    NumberThruster thruster,
-    Engine engine,
-    Hull hull,
-    StartShipName startShipName,
-    int number)
-    : Pieces
+public class StartShip : Pieces
 {
-    public NumberWing Wings { get; } = wings;
-    public NumberThruster Thruster { get; } = thruster;
-    public NumberEngine Engine { get; } = new(engine);
-    public NumberHull Hull { get; } = new(hull);
+    public StartShip(List<Pieces> listPieces, string name, int number)
+    {
+        ListPieces = listPieces;
+        Name = name;
+        Number = number;
+    }
 
-    public string Name { get; } = name;
+    public List<Pieces> ListPieces { get; set; }
 
-    public int Number { get; } = number;
+    public string Name { get; }
 
-    public StartShipName StartShipName { get; } = startShipName;
+    public int Number { get; }
 
     public override int NumberPieces()
     {
@@ -31,18 +22,19 @@ public class StartShip(
 
     public override Pieces WithAddNumber(int number)
     {
-        return new StartShip(Name, Wings, Thruster, Engine.Engine, Hull.Hull, StartShipName, number + Number);
+        return new StartShip(ListPieces, Name, number);
     }
 
     public override Pieces WithMultiplyNumber(int number)
     {
-        return new StartShip(Name, Wings, Thruster, Engine.Engine, Hull.Hull, StartShipName, number * Number);
+        return new StartShip(ListPieces, Name, Number * number);
     }
 
     public override Pieces WithRemoveNumber(int number)
     {
-        return new StartShip(Name, Wings, Thruster, Engine.Engine, Hull.Hull, StartShipName, Number - number);
+        return new StartShip(ListPieces, Name, Number - number);
     }
+
 
     public override string TypePiecePrecise()
     {

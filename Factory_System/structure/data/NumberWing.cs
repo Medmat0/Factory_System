@@ -13,7 +13,7 @@ public class NumberWing : Pieces
 
     public NumberWing(Wing wing)
     {
-        Number = 2;
+        Number = 1;
         Wing = wing;
     }
 

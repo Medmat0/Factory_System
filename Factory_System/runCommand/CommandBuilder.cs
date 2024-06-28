@@ -33,6 +33,10 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
                 var produce = new ProduceRunCommand(CommandAndArgs.Args!);
                 produce.Run();
                 break;
+            case CommandEnum.AddTemplate:
+                var template = new AddTemplateRunCommand(CommandAndArgs.Args!);
+                template.Run();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(CommandAndArgs.CommandEnum), CommandAndArgs.CommandEnum,
                     "Unknown command.");

@@ -1,6 +1,7 @@
 using System;
 using Factory_System.singleton;
 using Factory_System.structure.@enum;
+using Factory_System.structure.piece;
 using Factory_System.validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,5 +59,20 @@ public class Test
         commandBuilder
             .SplitIntoCommandAndArgs()
             .VerifyByCommand();
+    }
+
+    [TestMethod]
+    public void test_ADD_TEMPLATE()
+    {
+        var engine = Engine.Engine_EC1.ToString();
+        var hull = Hull.Hull_HC1.ToString();
+        var wing = Wing.Wings_WC1.ToString();
+        var thurster = Thruster.Thruster_TC1.ToString();
+        var commandBuilder = new CommandValidation("ADD_TEMPLATE");
+        var addTemplateValidation = new AddTemplateValidation("ADD_TEMPLATE");
+        var piecesEngine = addTemplateValidation.BuildPiece(engine, 1);
+        var piecesWing = addTemplateValidation.BuildPiece(wing, 1);
+        var piecesThruster = addTemplateValidation.BuildPiece(thurster, 1);
+        var piecesHull = addTemplateValidation.BuildPiece(hull, 1);
     }
 }

@@ -1,7 +1,6 @@
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.runCommand;
 
@@ -16,7 +15,7 @@ public class VerifyRunCommand : ICommandRun
 
     private Database Database { get; } = Singleton<Database>.Instance;
 
-    private Dictionary<StartShipName, StartShip> StarShips { get; }
+    private Dictionary<string, StartShip> StarShips { get; }
 
     public void Run()
     {
@@ -27,12 +26,8 @@ public class VerifyRunCommand : ICommandRun
     private bool NumberPiece()
     {
         foreach (var (_, starShip) in StarShips)
-        {
-            if (starShip.Engine.NumberPieces() >= Database.NumberPiece(starShip.Engine)) return false;
-            if (starShip.Hull.NumberPieces() >= Database.NumberPiece(starShip.Hull)) return false;
-            if (starShip.Thruster.NumberPieces() >= Database.NumberPiece(starShip.Thruster)) return false;
-            if (starShip.Wings.NumberPieces() >= Database.NumberPiece(starShip.Wings)) return false;
-        }
+            if (starShip.ListPieces.Any(piece => piece.NumberPieces() > Database.NumberPiece(piece)))
+                return false;
 
         return true;
     }

@@ -1,7 +1,6 @@
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.runCommand;
 
@@ -14,7 +13,7 @@ public class ProduceRunCommand : ICommandRun
         StarShips = temp.StartShips;
     }
 
-    private Dictionary<StartShipName, StartShip> StarShips { get; }
+    private Dictionary<string, StartShip> StarShips { get; }
     private Database Database { get; } = Singleton<Database>.Instance;
 
     public void Run()
@@ -30,13 +29,9 @@ public class ProduceRunCommand : ICommandRun
 
     private bool NumberPiece()
     {
-        foreach (var (_, starShipStruct) in StarShips)
-        {
-            if (starShipStruct.Number > Database.NumberPiece(starShipStruct.Engine)) return false;
-            if (starShipStruct.Number > Database.NumberPiece(starShipStruct.Hull)) return false;
-            if (starShipStruct.Number > Database.NumberPiece(starShipStruct.Thruster)) return false;
-            if (starShipStruct.Number > Database.NumberPiece(starShipStruct.Wings)) return false;
-        }
+        foreach (var (_, starShip) in StarShips)
+            if (starShip.ListPieces.Any(piece => piece.NumberPieces() > Database.NumberPiece(piece)))
+                return false;
 
         return true;
     }
@@ -45,10 +40,7 @@ public class ProduceRunCommand : ICommandRun
     {
         foreach (var (_, startShip) in StarShips)
         {
-            Database.RemovePiece(startShip.Thruster);
-            Database.RemovePiece(startShip.Hull);
-            Database.RemovePiece(startShip.Wings);
-            Database.RemovePiece(startShip.Engine);
+            foreach (var piece in startShip.ListPieces) Database.RemovePiece(piece);
             Database.AddPiece(startShip);
         }
     }

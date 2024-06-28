@@ -59,6 +59,10 @@ public class CommandValidation(string command)
                 var verifyValidation = new VerifyValidation(CommandAndArgs.Args);
                 verifyValidation.Validation();
                 break;
+            case CommandEnum.AddTemplate:
+                var template = new AddTemplateValidation(CommandAndArgs.Args);
+                template.Validation();
+                break;
             case CommandEnum.Instructions:
                 throw new Exception("Is not implemented"); //TODO: implement
         }
