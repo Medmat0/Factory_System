@@ -1,39 +1,50 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-namespace Factory_System
+namespace Factory_System;
+
+internal class Program
 {
-    internal class Program
+    private static void Main(string[] args)
     {
-        static void Main(string[] args)
+        try
         {
-            try
+            Console.WriteLine("Welcome to the starship factory:\n");
+
+            while (true)
             {
+                Console.WriteLine("Enter your command :");
+                var userInput = Console.ReadLine();
 
-                StockManager stockManager = new StockManager();
-                ClientCommand commandClient = new ClientCommand(stockManager);
-
-
-                Console.WriteLine("Welcome the factory vaissaux : \n");
-                while (true)
+                if (string.Equals(userInput, "exit", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine("Entre your command !");
-                    string userInput = Console.ReadLine();
-
-                    if (!string.IsNullOrEmpty(userInput))
-                    {
-                        commandClient.ProcessCommand(userInput);
-                    }
-                    else
-                    {
-                        Console.WriteLine("You must enter a command.");
-                    }
+                    Console.WriteLine("Exiting the program. Goodbye!");
+                    break;
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
+
+                if (!string.IsNullOrEmpty(userInput))
+                    try
+                    {
+                        new Run(userInput).Try();
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine("Invalid argument: " + ex.Message);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        Console.WriteLine("Operation error: " + ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                    }
+                else
+                    Console.WriteLine("You must enter a command.");
             }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An unexpected error occurred: " + ex.Message);
+        }
     }
-
 }
