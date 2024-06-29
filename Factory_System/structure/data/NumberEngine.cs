@@ -47,4 +47,9 @@ public class NumberEngine : Pieces
     {
         return Engine.ToString();
     }
+
+    public override string View()
+    {
+        return Number + " " + TypePiecePrecise();
+    }
 }

@@ -13,16 +13,14 @@ public class AddTemplateValidation(string? command) : ICommandValidation
         if (Args == null) throw new ArgumentNullException(nameof(Args), "Arguments (Args) cannot be null.");
         var pieceParse = new ParsePiece(Args);
         pieceParse.Parse();
+
         var pieces = pieceParse.PiecesStartShip.Values.ToList();
-        var validationStarShipCook = new ValidationStarShipCook(pieces);
+        var validationStarShipCook = new ValidationStarShipCook(pieces, pieceParse.StartShipName);
+        if (validationStarShipCook.FindIfAnotherShipAddThisName())
+        {
+            throw new Exception("The startShipName is already in the cookbook");
+        }
         return validationStarShipCook.ValidatePiece();
-    }
-
-
-    public bool FindTypeOfPiece(string name)
-    {
-        if (Enum.TryParse(name, out Hull _)) return true;
-        return Enum.TryParse(name, out Thruster _) || Enum.TryParse(name, out Engine _);
     }
 
 

@@ -1,8 +1,9 @@
+using Factory_System.singleton;
 using Factory_System.structure.data;
 
 namespace Factory_System.validation;
 
-public class ValidationStarShipCook(List<Pieces> piecesList)
+public class ValidationStarShipCook(List<Pieces> piecesList, string starShipName)
 {
     /*
      * Un vaisseau doit donc maintenant être constitué de :
@@ -12,7 +13,19 @@ public class ValidationStarShipCook(List<Pieces> piecesList)
        - 1 paire d’aile (possiblement deux ailes différentes permettant des design asymétriques)
      */
 
+    private CookBook CookBook { get; } = Singleton<CookBook>.Instance;
     public List<Pieces> PiecesList { get; } = piecesList;
+
+    public string StarShipName { get; } = starShipName;
+
+
+    public bool FindIfAnotherShipAddThisName()
+    {
+        var startShip = CookBook.GetOneStarShipWithName(StarShipName);
+        if (startShip == null) return false;
+
+        return true;
+    }
 
     public bool ValidatePieceCount<T>(Func<Pieces, bool> predicate, int maxCount, bool mustBeUnique = false)
         where T : Pieces

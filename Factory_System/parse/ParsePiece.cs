@@ -57,9 +57,7 @@ public class ParsePiece
             }
         }
 
-        var pieces = PiecesStartShip.Values.ToList();
-        var validationStarShipCook = new ValidationStarShipCook(pieces);
-        return validationStarShipCook.ValidatePiece();
+        return true;
     }
 
 

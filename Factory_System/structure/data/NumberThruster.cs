@@ -47,4 +47,9 @@ public class NumberThruster : Pieces
     {
         return Thruster.ToString();
     }
+    
+    public override string View()
+    {
+        return Number + " " + TypePiecePrecise();
+    }
 }

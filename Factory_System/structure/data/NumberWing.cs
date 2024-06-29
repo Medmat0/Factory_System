@@ -48,4 +48,9 @@ public class NumberWing : Pieces
     {
         return Wing.ToString();
     }
+    
+    public override string View()
+    {
+        return Number + " " + TypePiecePrecise();
+    }
 }

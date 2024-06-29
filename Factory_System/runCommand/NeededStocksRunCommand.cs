@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
@@ -18,32 +19,52 @@ public class NeededStocksRunCommand : ICommandRun
 
     public void Run()
     {
-        AddInDatabase();
+        //AddInDatabase();
         ViewInConsole();
-    }
-
-    private void AddInDatabase()
-    {
-        foreach (var (_, starShip) in StarShips)
-        foreach (var pieces in starShip.ListPieces)
-            Database.AddPiece(pieces.WithMultiplyNumber(pieces.NumberPieces()));
     }
 
 
     private void ViewInConsole()
     {
+       Console.WriteLine(ViewFirstPart() + ViewSecondPart());
+    }
+    
+    private string ViewFirstPart()
+    {
         var content = "";
-
         foreach (var (_, starShip) in StarShips)
-        foreach (var piece in starShip.ListPieces)
-            content += $"{Database.NumberPiece(piece)} {piece.TypePiecePrecise()}\n";
+        {
+            content += starShip.NumberPieces() + " " + starShip.Name + ":\n";
+            foreach (var piece in starShip.ListPieces)
+            {
+                content += $"{piece.View()}\n";
+            }
+        }
+        return content;
+    }
+    
+    private string ViewSecondPart()
+    {
+        var listPieces = StarShips.Values.Select(ship => CreateListWithShip(ship)).SelectMany(l => l).ToList();
 
-        content += "Total :\n";
-        //TODO solve this with number of pieces individuel
-        foreach (var (_, starShip) in StarShips)
-        foreach (var piece in starShip.ListPieces)
-            content += $"{Database.NumberPiece(piece)} {piece.TypePiecePrecise()}\n";
+        var piecesNeeded = listPieces.GroupBy(p => p.TypePiecePrecise())
+            .Select(g => new
+            {
+                PieceType = g.Key,
+                TotalQuantity = g.Sum(p => p.NumberPieces())
+            })
+            .OrderBy(p => p.PieceType);
 
-        Console.Write(content);
+        var content = "Total:\n";
+        foreach (var piece in piecesNeeded)
+        {
+            content += $"{piece.TotalQuantity} {piece.PieceType}\n";
+        }
+        return content;
+    }
+
+    private List<Pieces> CreateListWithShip(StartShip ship)
+    {
+        return ship.ListPieces.Select(piece => piece.WithMultiplyNumber(ship.NumberPieces())).ToList();
     }
 }

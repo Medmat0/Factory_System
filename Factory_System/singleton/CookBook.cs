@@ -11,23 +11,22 @@ public class CookBook
             .AddStartShipName("Explorer")
             .AddEngine(Engine.Engine_EE1)
             .AddHull(Hull.Hull_HE1)
-            .AddWings(Wing.Wings_WE1)
-            .AddWings(Wing.Wings_WE1)
+            .AddWings(Wing.Wings_WE1, 2)
             .AddThrusters(Thruster.Thruster_TE1)
             .Build(),
         new StarShipBuilder()
             .AddStartShipName("Speeder")
             .AddEngine(Engine.Engine_ES1)
             .AddHull(Hull.Hull_HS1)
-            .AddWings(Wing.Wings_WS1)
+            .AddWings(Wing.Wings_WS1, 2)
             .AddThrusters(Thruster.Thruster_TS1, 2)
             .Build(),
         new StarShipBuilder()
             .AddStartShipName("Speeder")
             .AddEngine(Engine.Engine_ES1)
             .AddHull(Hull.Hull_HS1)
-            .AddWings(Wing.Wings_WS1)
-            .AddThrusters(Thruster.Thruster_TS1)
+            .AddWings(Wing.Wings_WE1, 2)
+            .AddThrusters(Thruster.Thruster_TS1, 2)
             .Build()
     ];
 

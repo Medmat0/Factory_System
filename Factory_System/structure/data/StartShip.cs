@@ -40,4 +40,10 @@ public class StartShip : Pieces
     {
         return Name;
     }
+    
+    public override string View()
+    {
+        return Number + " " + TypePiecePrecise();
+    }
+    
 }

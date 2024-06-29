@@ -11,4 +11,6 @@ public abstract class Pieces
     public abstract Pieces WithRemoveNumber(int number);
 
     public abstract string TypePiecePrecise();
+
+    public abstract string View();
 }
