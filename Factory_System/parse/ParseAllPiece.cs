@@ -4,30 +4,25 @@ using Factory_System.structure.piece;
 
 namespace Factory_System.parse;
 
-public class ParsePiece
+public class ParseAllPiece
 {
-    public ParsePiece(string args)
+    
+    public ParseAllPiece(string args)
     {
         Args = args;
     }
-
-    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
-    private string Args { get; }
-
-
     public Dictionary<string, Pieces> PiecesStartShip { get; } = new();
-
-    public string StartShipName { get; private set; } = "";
-
-
+    
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
+    
+    private CookBook CookBook { get;  } = Singleton<CookBook>.Instance;
+    private string Args { get; }
+    
     public bool Parse()
     {
         var listNameAndNumber = Args.Split(",").ToList();
-        if (listNameAndNumber == null || listNameAndNumber.Count < 5)
-            throw new ArgumentException("Arguments are either null or empty. Please provide valid input.");
-
-        StartShipName = listNameAndNumber.First().Trim();
-        var listPiece = listNameAndNumber.Skip(1).ToList();
+        
+        var listPiece = listNameAndNumber.ToList();
         for (var i = 0; i < listPiece.Count; i++)
         {
             var numberAndPiece = listPiece[i].Trim().Split(" ");
@@ -57,8 +52,17 @@ public class ParsePiece
 
         return true;
     }
-
-
+    
+    private Pieces? FindPiece(string input)
+    {
+        if (Enum.TryParse(input, out Thruster thruster)) return new NumberThruster(0,thruster);
+        if (Enum.TryParse(input, out Engine engine)) return new NumberEngine(0,engine);
+        if (Enum.TryParse(input, out Wing wing)) return new NumberWing(0,wing);
+        if (Enum.TryParse(input, out Hull hull)) return new NumberHull(0,hull);
+        var starShip = CookBook.GetOneStarShipWithName(input);
+        return starShip ?? null;
+    }
+    
     private void AddPiece(Pieces pieces, int value)
     {
         if (PiecesStartShip.TryGetValue(pieces.TypePiecePrecise(), out var existingPieces))
@@ -71,15 +75,5 @@ public class ParsePiece
             var newPieces = pieces.WithAddNumber(value);
             PiecesStartShip[pieces.TypePiecePrecise()] = newPieces;
         }
-    }
-
-
-    private Pieces? FindPiece(string input)
-    {
-        if (Enum.TryParse(input, out Thruster thruster)) return new NumberThruster(0,thruster);
-        if (Enum.TryParse(input, out Engine engine)) return new NumberEngine(0,engine);
-        if (Enum.TryParse(input, out Wing wing)) return new NumberWing(0,wing);
-        if (Enum.TryParse(input, out Hull hull)) return new NumberHull(0,hull);
-        return null;
     }
 }

@@ -66,13 +66,13 @@ public class ValidationStarShipCook(List<Pieces> piecesList, string starShipName
 
     public bool ValidatePiece()
     {
-        if (ValidateNumberOfHull()) throw new Exception("Is not a possible hull");
+        if (!ValidateNumberOfHull()) throw new Exception("Is not a possible hull");
 
-        if (ValidateNumberOfEngine()) throw new Exception("Is not possible engine");
+        if (!ValidateNumberOfEngine()) throw new Exception("Is not possible engine");
 
-        if (ValidateNumberOfThruster()) throw new Exception("Is not possible thruster");
+        if (!ValidateNumberOfThruster()) throw new Exception("Is not possible thruster");
 
-        if (ValidateNumberOfWing()) throw new Exception("Is not a possible wing");
+        if (!ValidateNumberOfWing()) throw new Exception("Is not a possible wing");
 
         return true;
     }

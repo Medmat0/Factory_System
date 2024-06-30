@@ -5,12 +5,8 @@ namespace Factory_System.parse;
 
 public class ParseTypePiece
 {
-    
-    private  CookBook Cookbook { get; } = Singleton<CookBook>.Instance;
-    public ParseTypePiece()
-    {
-    }
-    
+    private CookBook Cookbook { get; } = Singleton<CookBook>.Instance;
+
     public bool FindTypeOfPiece(string name)
     {
         if (Enum.TryParse(name, out Hull _)) return true;

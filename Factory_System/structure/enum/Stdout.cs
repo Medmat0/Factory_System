@@ -5,5 +5,5 @@ public enum Stdout
     Json,
     Console,
     Xml,
-    Txt,
+    Txt
 }

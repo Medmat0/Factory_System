@@ -9,5 +9,6 @@ public enum CommandEnum
     [EnumMember(Value = "NEEDED_STOCKS")] NeededStocks,
     [EnumMember(Value = "INSTRUCTIONS")] Instructions,
     [EnumMember(Value = "PRODUCE")] Produce,
-    [EnumMember(Value = "ADD_TEMPLATE")] AddTemplate
+    [EnumMember(Value = "ADD_TEMPLATE")] AddTemplate,
+    [EnumMember(Value = "RECEIVE")] Receive,
 }

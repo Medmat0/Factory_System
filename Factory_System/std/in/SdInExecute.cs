@@ -4,16 +4,12 @@ namespace Factory_System.std;
 
 public class SdInExecute
 {
-    public SdInExecute()
-    {
-    }
-    
     public void Execute(Stdout stdout, string? path)
     {
         switch (stdout)
         {
             case Stdout.Console:
-                StdInConsole stdInConsole = new StdInConsole();
+                var stdInConsole = new StdInConsole();
                 stdInConsole.execute(null);
                 break;
             case Stdout.Json:

@@ -1,4 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
 using Factory_System.parse;
 using Factory_System.singleton;
 using Factory_System.structure.data;
@@ -14,35 +13,34 @@ public class NeededStocksRunCommand : ICommandRun
         StarShips = temp.StartShips;
     }
 
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
+
     private Dictionary<string, StartShip> StarShips { get; }
     private Database Database { get; } = Singleton<Database>.Instance;
 
     public void Run()
     {
-        //AddInDatabase();
         ViewInConsole();
     }
 
 
     private void ViewInConsole()
     {
-       Console.WriteLine(ViewFirstPart() + ViewSecondPart());
+        StdOut.WriteLine(ViewFirstPart() + ViewSecondPart());
     }
-    
+
     private string ViewFirstPart()
     {
         var content = "";
         foreach (var (_, starShip) in StarShips)
         {
             content += starShip.NumberPieces() + " " + starShip.Name + ":\n";
-            foreach (var piece in starShip.ListPieces)
-            {
-                content += $"{piece.View()}\n";
-            }
+            foreach (var piece in starShip.ListPieces) content += $"{piece.View()}\n";
         }
+
         return content;
     }
-    
+
     private string ViewSecondPart()
     {
         var listPieces = StarShips.Values.Select(ship => CreateListWithShip(ship)).SelectMany(l => l).ToList();
@@ -56,10 +54,7 @@ public class NeededStocksRunCommand : ICommandRun
             .OrderBy(p => p.PieceType);
 
         var content = "Total:\n";
-        foreach (var piece in piecesNeeded)
-        {
-            content += $"{piece.TotalQuantity} {piece.PieceType}\n";
-        }
+        foreach (var piece in piecesNeeded) content += $"{piece.TotalQuantity} {piece.PieceType}\n";
         return content;
     }
 

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Factory_System.singleton;
+using Factory_System.structure.data;
 using Factory_System.structure.@enum;
 using Factory_System.structure.piece;
 using Factory_System.validation;
@@ -70,9 +72,17 @@ public class Test
         var thurster = Thruster.Thruster_TC1.ToString();
         var commandBuilder = new CommandValidation("ADD_TEMPLATE");
         var addTemplateValidation = new AddTemplateValidation("ADD_TEMPLATE");
-        var piecesEngine = addTemplateValidation.BuildPiece(engine, 1);
-        var piecesWing = addTemplateValidation.BuildPiece(wing, 1);
-        var piecesThruster = addTemplateValidation.BuildPiece(thurster, 1);
-        var piecesHull = addTemplateValidation.BuildPiece(hull, 1);
     }
+
+    [TestMethod]
+    public void test_Validation_StarShip()
+    {
+        Pieces thruster = new NumberThruster(1, Thruster.Thruster_TC1);
+        List<Pieces> piecesList = new List<Pieces>();
+        piecesList.Add(thruster);
+        var validation = new ValidationStarShipCook(piecesList, "test");
+        Assert.IsTrue(validation.ValidateNumberOfThruster());
+    }
+    
+    
 }

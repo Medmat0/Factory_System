@@ -13,6 +13,8 @@ public class VerifyRunCommand : ICommandRun
         StarShips = temp.StartShips;
     }
 
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
+
     private Database Database { get; } = Singleton<Database>.Instance;
 
     private Dictionary<string, StartShip> StarShips { get; }
@@ -20,7 +22,7 @@ public class VerifyRunCommand : ICommandRun
     public void Run()
     {
         var result = NumberPiece();
-        Console.Write(result ? "AVAILABLE\n" : "UNAVAILABLE\n");
+        StdOut.WriteLine(result ? "AVAILABLE\n" : "UNAVAILABLE\n");
     }
 
     private bool NumberPiece()

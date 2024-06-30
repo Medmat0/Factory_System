@@ -37,6 +37,10 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
                 var template = new AddTemplateRunCommand(CommandAndArgs.Args!);
                 template.Run();
                 break;
+            case CommandEnum.Receive:
+                var receive = new ReceiveCommand(CommandAndArgs.Args!);
+                receive.Run();
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(CommandAndArgs.CommandEnum), CommandAndArgs.CommandEnum,
                     "Unknown command.");

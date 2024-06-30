@@ -7,7 +7,6 @@ public class Singleton<T> where T : new()
 
     private Singleton()
     {
-        // Constructeur privé pou empêcher l'instanciation directe de la classe.
     }
 
     public static T Instance

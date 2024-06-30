@@ -10,6 +10,8 @@ public class ParseStarShip
         Args = args;
     }
 
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
+
     public Dictionary<string, StartShip> StartShips { get; } = new();
     public CookBook Cookbook { get; } = Singleton<CookBook>.Instance;
     public string Args { get; }
@@ -31,7 +33,7 @@ public class ParseStarShip
             if (starShip == null)
             {
                 // Log the error and continue for dont stop the process
-                Console.WriteLine(
+                StdOut.WriteLine(
                     $"Warning: Starship '{numberAndShip[1].Trim()}' not found in the cookbook. Skipping this entry.");
                 continue;
             }

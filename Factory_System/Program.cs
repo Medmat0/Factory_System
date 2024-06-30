@@ -9,7 +9,6 @@ internal class Program
     private static void Main(string[] args)
     {
         var parseArgumentConsole = new ParseArgumentConsole(args);
-        parseArgumentConsole.buildSdout();
-
+        parseArgumentConsole.BuildSdout();
     }
 }

@@ -48,7 +48,7 @@ public class NumberHull : Pieces
     {
         return Hull.ToString();
     }
-    
+
     public override string View()
     {
         return Number + " " + TypePiecePrecise();

@@ -17,9 +17,7 @@ public class AddTemplateValidation(string? command) : ICommandValidation
         var pieces = pieceParse.PiecesStartShip.Values.ToList();
         var validationStarShipCook = new ValidationStarShipCook(pieces, pieceParse.StartShipName);
         if (validationStarShipCook.FindIfAnotherShipAddThisName())
-        {
             throw new Exception("The startShipName is already in the cookbook");
-        }
         return validationStarShipCook.ValidatePiece();
     }
 

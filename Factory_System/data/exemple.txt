@@ -1,5 +1,0 @@
-STOCKS
-NEEDED_STOCKS 10 Speeder
-STOCKS
-ADD_TEMPLATE ari, 3 Thruster_TE1 , 2 Engine_EE1, 2 Wings_WE1 , 1 Hull_HE1
-NEEDED_STOCKS 10 ari

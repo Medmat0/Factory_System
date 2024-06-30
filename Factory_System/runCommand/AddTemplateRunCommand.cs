@@ -14,6 +14,8 @@ public class AddTemplateRunCommand : ICommandRun
         StartShipName = pieceParse.StartShipName;
     }
 
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
+
     public CookBook Cookbook { get; } = Singleton<CookBook>.Instance;
     public Dictionary<string, Pieces> PiecesStartShip { get; set; }
 
@@ -25,5 +27,6 @@ public class AddTemplateRunCommand : ICommandRun
         var pieces = PiecesStartShip.Values.ToList();
         var startShip = new StartShip(pieces, StartShipName, 1);
         Cookbook.AddStartShip(startShip);
+        StdOut.WriteLine($"add template StartShip: {startShip.Name}");
     }
 }
