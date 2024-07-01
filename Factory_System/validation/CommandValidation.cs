@@ -64,7 +64,9 @@ public class CommandValidation(string command)
                 template.Validation();
                 break;
             case CommandEnum.Instructions:
-                throw new Exception("Is not implemented"); //TODO: implement
+                var instruction = new InstructionValidation(CommandAndArgs.Args);
+                instruction.Validation();
+                break;
         }
 
         return this;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Factory_System.runCommand;
 using Factory_System.singleton;
 using Factory_System.structure.data;
 using Factory_System.structure.@enum;
@@ -62,18 +63,7 @@ public class Test
             .SplitIntoCommandAndArgs()
             .VerifyByCommand();
     }
-
-    [TestMethod]
-    public void test_ADD_TEMPLATE()
-    {
-        var engine = Engine.Engine_EC1.ToString();
-        var hull = Hull.Hull_HC1.ToString();
-        var wing = Wing.Wings_WC1.ToString();
-        var thurster = Thruster.Thruster_TC1.ToString();
-        var commandBuilder = new CommandValidation("ADD_TEMPLATE");
-        var addTemplateValidation = new AddTemplateValidation("ADD_TEMPLATE");
-    }
-
+    
     [TestMethod]
     public void test_Validation_StarShip()
     {
@@ -82,6 +72,15 @@ public class Test
         piecesList.Add(thruster);
         var validation = new ValidationStarShipCook(piecesList, "test");
         Assert.IsTrue(validation.ValidateNumberOfThruster());
+    }
+
+    [TestMethod]
+    public void test_InstructionRunCommand()
+    {
+        var instructionRunCommand = new InstructionRunCommand("1 Speeder");
+        var singleton = Singleton<StdOutSingleton>.Instance;
+        singleton.Init(null, Stdout.Console);
+        instructionRunCommand.Run();
     }
     
     

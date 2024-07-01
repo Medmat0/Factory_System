@@ -28,6 +28,8 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
                 need.Run();
                 break;
             case CommandEnum.Instructions:
+                var instruction = new InstructionRunCommand(CommandAndArgs.Args!);
+                instruction.Run();
                 break;
             case CommandEnum.Produce:
                 var produce = new ProduceRunCommand(CommandAndArgs.Args!);

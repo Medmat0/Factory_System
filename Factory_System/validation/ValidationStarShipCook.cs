@@ -5,13 +5,6 @@ namespace Factory_System.validation;
 
 public class ValidationStarShipCook(List<Pieces> piecesList, string starShipName)
 {
-    /*
-     * Un vaisseau doit donc maintenant être constitué de :
-       - 1 coque
-       - 1 à 3 propulseur(s)
-       - 1 ou 2 moteurs
-       - 1 paire d’aile (possiblement deux ailes différentes permettant des design asymétriques)
-     */
 
     private CookBook CookBook { get; } = Singleton<CookBook>.Instance;
     public List<Pieces> PiecesList { get; } = piecesList;
