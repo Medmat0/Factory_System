@@ -1,4 +1,4 @@
-using Factory_System.std.@out;
+using Factory_System.std.outStd;
 using Factory_System.structure.@enum;
 
 namespace Factory_System.singleton;

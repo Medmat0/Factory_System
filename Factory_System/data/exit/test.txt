@@ -1,0 +1,101 @@
+
+10 Speeder
+2 Wings_WE1
+1 Hull_HE1
+2 Engine_EE1
+1 Thruster_TE1
+
+10 Speeder:
+2 Thruster_TS1
+1 Engine_ES1
+2 Wings_WS1
+1 Hull_HS1
+Total:
+10 Engine_ES1
+10 Hull_HS1
+20 Thruster_TS1
+20 Wings_WS1
+
+10 Speeder
+2 Wings_WE1
+1 Hull_HE1
+2 Engine_EE1
+1 Thruster_TE1
+
+add template StartShip: ari
+10 ari:
+2 Thruster_TE1
+2 Engine_EE1
+1 Wings_WE1
+1 Hull_HE1
+1 Wings_WS1
+Total:
+20 Engine_EE1
+10 Hull_HE1
+20 Thruster_TE1
+10 Wings_WE1
+10 Wings_WS1
+
+PRODUCING ari
+GET_OUT_STOCK 2 Thruster_TE1
+GET_OUT_STOCK 2 Engine_EE1
+GET_OUT_STOCK 1 Wings_WE1
+GET_OUT_STOCK 1 Hull_HE1
+GET_OUT_STOCK 1 Wings_WS1
+Assemble tmp00 Thruster_TE1 Thruster_TE1
+Assemble tmp02 Engine_EE1 Engine_EE1
+Assemble tmp04 Wings_WE1 Hull_HE1
+Assemble tmp10 tmp00 tmp02
+Assemble tmp12 tmp04 Wings_WS1
+Assemble tmp20 tmp10 tmp12
+FINISHED ari
+10 Speeder
+2 Wings_WE1
+1 Hull_HE1
+2 Engine_EE1
+1 Thruster_TE1
+
+10 Speeder:
+2 Thruster_TS1
+1 Engine_ES1
+2 Wings_WS1
+1 Hull_HS1
+Total:
+10 Engine_ES1
+10 Hull_HS1
+20 Thruster_TS1
+20 Wings_WS1
+
+10 Speeder
+2 Wings_WE1
+1 Hull_HE1
+2 Engine_EE1
+1 Thruster_TE1
+
+add template StartShip: ari
+10 ari:
+2 Thruster_TE1
+2 Engine_EE1
+1 Wings_WE1
+1 Hull_HE1
+1 Wings_WS1
+Total:
+20 Engine_EE1
+10 Hull_HE1
+20 Thruster_TE1
+10 Wings_WE1
+10 Wings_WS1
+
+PRODUCING ari
+GET_OUT_STOCK 2 Thruster_TE1
+GET_OUT_STOCK 2 Engine_EE1
+GET_OUT_STOCK 1 Wings_WE1
+GET_OUT_STOCK 1 Hull_HE1
+GET_OUT_STOCK 1 Wings_WS1
+Assemble tmp00 Thruster_TE1 Thruster_TE1
+Assemble tmp02 Engine_EE1 Engine_EE1
+Assemble tmp04 Wings_WE1 Hull_HE1
+Assemble tmp10 tmp00 tmp02
+Assemble tmp12 tmp04 Wings_WS1
+Assemble tmp20 tmp10 tmp12
+FINISHED ari
