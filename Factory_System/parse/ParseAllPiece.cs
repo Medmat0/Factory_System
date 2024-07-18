@@ -34,8 +34,8 @@ public class ParseAllPiece
             if (piece == null)
             {
                 StdOut.WriteLine(
-                    $"Warning: Starship '{numberAndPiece[1].Trim()}' not found in the cookbook. Skipping this entry.");
-                continue;
+                    $"ERROR: Starship '{numberAndPiece[1].Trim()}' not found in the cookbook. Skipping this entry.");
+                return false;
             }
 
             try

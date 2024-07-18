@@ -9,6 +9,14 @@ public class StartShip : Pieces
         Number = number;
     }
 
+    
+    public StartShip(List<Pieces> listPieces, string name)
+    {
+        ListPieces = listPieces;
+        Name = name;
+        Number = 1;
+    }
+    
     public List<Pieces> ListPieces { get; set; }
 
     public string Name { get; }
@@ -22,7 +30,7 @@ public class StartShip : Pieces
 
     public override Pieces WithAddNumber(int number)
     {
-        return new StartShip(ListPieces, Name, number);
+        return new StartShip(ListPieces, Name, number + Number);
     }
 
     public override Pieces WithMultiplyNumber(int number)

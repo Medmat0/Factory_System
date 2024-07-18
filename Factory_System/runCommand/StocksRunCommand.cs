@@ -10,6 +10,14 @@ public class StocksRunCommand : ICommandRun
 
     public void Run()
     {
-        StdOut.WriteLine(Database.ToString());
+        if (Database.ToString().Equals(""))
+        {
+            StdOut.WriteLine("STOCK_EMPTY\n");
+        }
+        else
+        {
+            StdOut.WriteLine(Database +"\n");
+        }
+       
     }
 }

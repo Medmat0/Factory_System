@@ -8,6 +8,9 @@
     "Factory_System_Windows": {
       "commandName": "Project",
       "workingDirectory": "C:\\Users\\yassi\\OneDrive\\Bureau\\4al_Sem2\\DesignPatterns\\Projet_DesignPatterns\\Factory_System"
+    },"Factory_System_Nour": {
+      "commandName": "Project",
+      "workingDirectory": "/Users/apoxx/RiderProjects/Factory_System"
     },
     "WSL": {
       "commandName": "WSL2",

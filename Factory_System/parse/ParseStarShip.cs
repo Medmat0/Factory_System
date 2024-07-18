@@ -34,7 +34,7 @@ public class ParseStarShip
             {
                 // Log the error and continue for dont stop the process
                 StdOut.WriteLine(
-                    $"Warning: Starship '{numberAndShip[1].Trim()}' not found in the cookbook. Skipping this entry.");
+                    $"ERROR Starship '{numberAndShip[1].Trim()}' not found in the cookbook. Skipping this entry.");
                 continue;
             }
 

@@ -27,6 +27,6 @@ public class AddTemplateRunCommand : ICommandRun
         var pieces = PiecesStartShip.Values.ToList();
         var startShip = new StartShip(pieces, StartShipName, 1);
         Cookbook.AddStartShip(startShip);
-        StdOut.WriteLine($"add template StartShip: {startShip.Name}");
+        StdOut.WriteLine($"Add new template : {startShip.Name}");
     }
 }

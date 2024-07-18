@@ -6,6 +6,8 @@ namespace Factory_System.runCommand;
 
 public class ProduceRunCommand : ICommandRun
 {
+    
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
     public ProduceRunCommand(string args)
     {
         var temp = new ParseStarShip(args);
@@ -25,6 +27,7 @@ public class ProduceRunCommand : ICommandRun
                 "Error in Conception: the number of pieces is invalid or could not be determined.");
 
         BuildStarShip();
+        
     }
 
     private bool NumberPiece()
@@ -43,5 +46,6 @@ public class ProduceRunCommand : ICommandRun
             foreach (var piece in startShip.ListPieces) Database.RemovePiece(piece);
             Database.AddPiece(startShip);
         }
+        StdOut.WriteLine("STOCK_UPDATED\n");
     }
 }
