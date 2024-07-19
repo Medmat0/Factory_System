@@ -65,7 +65,7 @@ public class InstructionRunCommand: ICommandRun
             {
                 break;
             }
-            StdOut.WriteLine($"Assemble {tmp}{i} {piecesList[i].TypePiecePrecise()} {piecesList[i+1].TypePiecePrecise()}");
+            StdOut.WriteLine($"ASSEMBLE {tmp}{i} {piecesList[i].TypePiecePrecise()} {piecesList[i+1].TypePiecePrecise()}");
             piecesResult.Add(new NumberAssembly($"{tmp}{i}"));
         }
 
