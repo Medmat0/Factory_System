@@ -3,7 +3,7 @@
     "Factory_System_MAC_ARI": {
       "commandName": "Project",
       "workingDirectory": "/Users/aristidefumo/Documents/school/pattern/Factory_System",
-      "commandLineArgs": "--start /Users/aristidefumo/Documents/school/pattern/Factory_System/Factory_System/data/in/test.txt --end /Users/aristidefumo/Documents/school/pattern/Factory_System/Factory_System/data/exit/test.txt"
+      "commandLineArgs": ""
     },
     "Factory_System_Windows": {
       "commandName": "Project",

@@ -52,4 +52,9 @@ public class NumberThruster : Pieces
     {
         return Number + " " + TypePiecePrecise();
     }
+    
+    public override string FindTypePiece()
+    {
+        return TypePiece.ToString();
+    }
 }

@@ -11,7 +11,7 @@ public class ParseAllPiece
     {
         Args = args;
     }
-    public Dictionary<string, Pieces> PiecesStartShip { get; } = new();
+    public Dictionary<string, Pieces> PiecesStartShip { get; set; } = new();
     
     private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
     

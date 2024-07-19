@@ -13,4 +13,6 @@ public abstract class Pieces
     public abstract string TypePiecePrecise();
 
     public abstract string View();
+
+    public abstract string FindTypePiece();
 }

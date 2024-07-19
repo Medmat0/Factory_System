@@ -53,4 +53,9 @@ public class NumberWing : Pieces
     {
         return Number + " " + TypePiecePrecise();
     }
+    
+    public override string FindTypePiece()
+    {
+        return TypePiece.ToString();
+    }
 }

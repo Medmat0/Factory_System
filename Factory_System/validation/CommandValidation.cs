@@ -67,6 +67,10 @@ public class CommandValidation(string command)
                 var instruction = new InstructionValidation(CommandAndArgs.Args);
                 instruction.Validation();
                 break;
+            case CommandEnum.Receive:
+                var receive = new ReceiveValidation(CommandAndArgs.Args);
+                receive.Validation();
+                break;
         }
 
         return this;

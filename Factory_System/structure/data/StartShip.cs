@@ -1,3 +1,5 @@
+using Factory_System.structure.@enum;
+
 namespace Factory_System.structure.data;
 
 public class StartShip : Pieces
@@ -18,6 +20,8 @@ public class StartShip : Pieces
     }
     
     public List<Pieces> ListPieces { get; set; }
+    
+    public TypePiece TypePiece { get; } = TypePiece.StarShip;
 
     public string Name { get; }
 
@@ -30,7 +34,7 @@ public class StartShip : Pieces
 
     public override Pieces WithAddNumber(int number)
     {
-        return new StartShip(ListPieces, Name, number + Number);
+        return new StartShip(ListPieces, Name, Number+ number);
     }
 
     public override Pieces WithMultiplyNumber(int number)
@@ -52,5 +56,10 @@ public class StartShip : Pieces
     public override string View()
     {
         return Number + " " + TypePiecePrecise();
+    }
+
+    public override string FindTypePiece()
+    {
+        return TypePiece.ToString();
     }
 }

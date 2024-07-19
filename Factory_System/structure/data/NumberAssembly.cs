@@ -1,3 +1,5 @@
+using Factory_System.structure.@enum;
+
 namespace Factory_System.structure.data;
 
 public class NumberAssembly : Pieces
@@ -5,6 +7,8 @@ public class NumberAssembly : Pieces
     
 
     public String Name { get; }
+    
+    public TypePiece TypePiece { get; } = TypePiece.Assembly;
     
     
     public NumberAssembly( string name)
@@ -40,5 +44,10 @@ public class NumberAssembly : Pieces
     public override string View()
     {
         return 1 + " " + TypePiecePrecise();
+    }
+    
+    public override string FindTypePiece()
+    {
+        return TypePiece.ToString();
     }
 }
