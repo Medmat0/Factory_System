@@ -67,13 +67,22 @@ public class ParseAllPiece
     {
         if (PiecesStartShip.TryGetValue(pieces.TypePiecePrecise(), out var existingPieces))
         {
+            pieces.FindTypePiece();
             var updatedPiece = existingPieces.WithAddNumber(existingPieces.NumberPieces() + value);
             PiecesStartShip[pieces.TypePiecePrecise()] = updatedPiece;
         }
         else
         {
-            var newPieces = pieces.WithAddNumber(value);
-            PiecesStartShip[pieces.TypePiecePrecise()] = newPieces;
+            if (pieces.FindTypePiece() == "StarShip")
+            {
+                var newPieces = pieces.WithAddNumber(value-1);
+                PiecesStartShip[pieces.TypePiecePrecise()] = newPieces;
+            }
+            else
+            {
+                var newPieces = pieces.WithAddNumber(value);
+                PiecesStartShip[pieces.TypePiecePrecise()] = newPieces;
+            }
         }
     }
 }
