@@ -1,0 +1,17 @@
+[
+  {
+    "content": "STOCKS"
+  },
+  {
+    "content": "NEEDED_STOCKS 10 Speeder"
+  },
+  {
+    "content": "STOCKS"
+  },
+  {
+    "content": "ADD_TEMPLATE ari, 2 Thruster_TE1 , 2 Engine_EE1, 2 Wings_WE1 , 1 Hull_HE1"
+  },
+  {
+    "content": "NEEDED_STOCKS 10 ari"
+  }
+]

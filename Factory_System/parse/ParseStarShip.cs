@@ -1,6 +1,5 @@
 using Factory_System.singleton;
 using Factory_System.structure.data;
-using Factory_System.structure.@enum;
 
 namespace Factory_System.parse;
 
@@ -11,7 +10,9 @@ public class ParseStarShip
         Args = args;
     }
 
-    public Dictionary<StartShipName, StartShip> StartShips { get; } = new();
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
+
+    public Dictionary<string, StartShip> StartShips { get; } = new();
     public CookBook Cookbook { get; } = Singleton<CookBook>.Instance;
     public string Args { get; }
 
@@ -32,8 +33,8 @@ public class ParseStarShip
             if (starShip == null)
             {
                 // Log the error and continue for dont stop the process
-                Console.WriteLine(
-                    $"Warning: Starship '{numberAndShip[1].Trim()}' not found in the cookbook. Skipping this entry.");
+                StdOut.WriteLine(
+                    $"ERROR Starship '{numberAndShip[1].Trim()}' not found in the cookbook. Skipping this entry.");
                 continue;
             }
 
@@ -55,16 +56,15 @@ public class ParseStarShip
 
     private void AddStartShip(StartShip starShip, int value)
     {
-        var numberActually = value;
-        if (StartShips.TryGetValue(starShip.StartShipName, out var ship)) numberActually += ship.Number;
-
-        StartShips[starShip.StartShipName] = new StarShipBuilder()
-            .name(starShip.Name)
-            .addEngine(starShip.Engine.Engine)
-            .addHull(starShip.Hull.Hull)
-            .addWings(starShip.Wings.Wing)
-            .addThrusters(starShip.Thruster.Thruster, starShip.Thruster.NumberPieces())
-            .addNumber(numberActually)
-            .build();
+        if (StartShips.TryGetValue(starShip.Name, out var existingStartShip))
+        {
+            var updatedStartShip = existingStartShip.WithAddNumber(existingStartShip.Number + value);
+            StartShips[starShip.Name] = (StartShip)updatedStartShip;
+        }
+        else
+        {
+            var newStartShip = new StartShip(starShip.ListPieces, starShip.Name, value);
+            StartShips[starShip.Name] = newStartShip;
+        }
     }
 }

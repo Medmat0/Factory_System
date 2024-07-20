@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using Factory_System.runCommand;
 using Factory_System.singleton;
+using Factory_System.structure.data;
 using Factory_System.structure.@enum;
+using Factory_System.structure.piece;
 using Factory_System.validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -59,4 +63,25 @@ public class Test
             .SplitIntoCommandAndArgs()
             .VerifyByCommand();
     }
+    
+    [TestMethod]
+    public void test_Validation_StarShip()
+    {
+        Pieces thruster = new NumberThruster(1, Thruster.Thruster_TC1);
+        List<Pieces> piecesList = new List<Pieces>();
+        piecesList.Add(thruster);
+        var validation = new ValidationStarShipCook(piecesList, "test");
+        Assert.IsTrue(validation.ValidateNumberOfThruster());
+    }
+
+    [TestMethod]
+    public void test_InstructionRunCommand()
+    {
+        var instructionRunCommand = new InstructionRunCommand("1 Speeder");
+        var singleton = Singleton<StdOutSingleton>.Instance;
+        singleton.Init(null, Stdout.Console);
+        instructionRunCommand.Run();
+    }
+    
+    
 }

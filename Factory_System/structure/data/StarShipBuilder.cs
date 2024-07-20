@@ -1,82 +1,94 @@
-using System.Reflection;
-using System.Runtime.Serialization;
-using Factory_System.structure.@enum;
 using Factory_System.structure.piece;
 
 namespace Factory_System.structure.data;
 
 public class StarShipBuilder
 {
-    private NumberWing Wings { get; set; }
-    private NumberThruster Thruster { get; set; }
-    private Engine Engine { get; set; }
-    private Hull Hull { get; set; }
+    public StarShipBuilder()
+    {
+        Wings = new List<NumberWing>();
+        Thrusters = new List<NumberThruster>();
+        Engines = new List<NumberEngine>();
+        Hulls = new List<NumberHull>();
+    }
 
-    private string Name { get; set; }
+    private List<NumberWing> Wings { get; }
+    private List<NumberThruster> Thrusters { get; }
+    private List<NumberEngine> Engines { get; }
+    private List<NumberHull> Hulls { get; }
+
 
     private int Number { get; set; } = 1;
 
-    private StartShipName StartShipName { get; set; }
+    private string StartShipName { get; set; }
 
-    public StarShipBuilder addWings(Wing wing)
+    public StarShipBuilder AddWings(Wing wing)
     {
-        Wings = new NumberWing(wing);
+        Wings.Add(new NumberWing(wing));
         return this;
     }
 
-    public StarShipBuilder addThrusters(Thruster thruster, int quantity)
+    public StarShipBuilder AddWings(Wing wing, int quantity)
     {
-        Thruster = new NumberThruster(quantity, thruster);
+        Wings.Add(new NumberWing(quantity, wing));
         return this;
     }
 
-    public StarShipBuilder addThrusters(Thruster thruster)
+    public StarShipBuilder AddThrusters(Thruster thruster, int quantity)
     {
-        Thruster = new NumberThruster(thruster);
+        Thrusters.Add(new NumberThruster(quantity, thruster));
         return this;
     }
 
-    public StarShipBuilder addHull(Hull hull)
+    public StarShipBuilder AddThrusters(Thruster thruster)
     {
-        Hull = hull;
+        Thrusters.Add(new NumberThruster(thruster));
         return this;
     }
 
-    public StarShipBuilder addEngine(Engine engine)
+    public StarShipBuilder AddHull(Hull hull)
     {
-        Engine = engine;
+        Hulls.Add(new NumberHull(hull));
         return this;
     }
 
-    public StarShipBuilder name(string name)
+    public StarShipBuilder AddHull(Hull hull, int quantity)
     {
-        Name = name;
-        StartShipName = FindEnumValue(name);
+        Hulls.Add(new NumberHull(quantity, hull));
         return this;
     }
 
-    public StarShipBuilder addNumber(int number)
+    public StarShipBuilder AddEngine(Engine engine)
+    {
+        Engines.Add(new NumberEngine(engine));
+        return this;
+    }
+
+    public StarShipBuilder AddEngine(Engine engine, int quantity)
+    {
+        Engines.Add(new NumberEngine(quantity, engine));
+        return this;
+    }
+
+    public StarShipBuilder AddStartShipName(string name)
+    {
+        StartShipName = name;
+        return this;
+    }
+
+    public StarShipBuilder AddNumber(int number)
     {
         Number = number;
         return this;
     }
 
-    public StartShip build()
+    public StartShip Build()
     {
-        return new StartShip(Name, Wings, Thruster, Engine, Hull, StartShipName, Number);
-    }
-
-    private StartShipName FindEnumValue(string value)
-    {
-        foreach (StartShipName enumValue in Enum.GetValues(typeof(CommandEnum)))
-        {
-            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-            if (fieldInfo == null) continue;
-            var attribute = fieldInfo.GetCustomAttribute<EnumMemberAttribute>();
-
-            if (attribute != null && attribute.Value == value) return enumValue;
-        }
-
-        throw new Exception("Error not found StartShip");
+        var result = new List<Pieces>();
+        result.AddRange(Thrusters);
+        result.AddRange(Engines);
+        result.AddRange(Wings);
+        result.AddRange(Hulls);
+        return new StartShip(result, StartShipName, Number);
     }
 }

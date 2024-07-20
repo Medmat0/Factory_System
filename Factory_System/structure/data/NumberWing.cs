@@ -13,7 +13,7 @@ public class NumberWing : Pieces
 
     public NumberWing(Wing wing)
     {
-        Number = 2;
+        Number = 1;
         Wing = wing;
     }
 
@@ -47,5 +47,15 @@ public class NumberWing : Pieces
     public override string TypePiecePrecise()
     {
         return Wing.ToString();
+    }
+
+    public override string View()
+    {
+        return Number + " " + TypePiecePrecise();
+    }
+    
+    public override string FindTypePiece()
+    {
+        return TypePiece.ToString();
     }
 }

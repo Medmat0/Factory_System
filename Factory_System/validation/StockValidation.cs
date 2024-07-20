@@ -1,5 +1,3 @@
-using Factory_System.parse;
-
 namespace Factory_System.validation;
 
 public class StockValidation(string? args) : ICommandValidation

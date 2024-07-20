@@ -1,4 +1,5 @@
 using Factory_System.runCommand;
+using Factory_System.singleton;
 using Factory_System.validation;
 
 namespace Factory_System;
@@ -9,6 +10,8 @@ public class Run
     {
         Input = input;
     }
+
+    private StdOutSingleton StdOut { get; } = Singleton<StdOutSingleton>.Instance;
 
     private string Input { get; }
 
@@ -22,19 +25,19 @@ public class Run
         }
         catch (ArgumentException ex)
         {
-            Console.WriteLine($"Argument error: {ex.Message}");
+            StdOut.WriteLine($"Argument error: {ex.Message}");
         }
         catch (InvalidOperationException ex)
         {
-            Console.WriteLine($"Invalid operation: {ex.Message}");
+            StdOut.WriteLine($"Invalid operation: {ex.Message}");
         }
         catch (KeyNotFoundException ex)
         {
-            Console.WriteLine($"Key not found: {ex.Message}");
+            StdOut.WriteLine($"Key not found: {ex.Message}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            StdOut.WriteLine($"An unexpected error occurred: {ex.Message}");
         }
     }
 }

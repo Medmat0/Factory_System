@@ -2,11 +2,15 @@
   "profiles": {
     "Factory_System_MAC_ARI": {
       "commandName": "Project",
-      "workingDirectory": "/Users/aristidefumo/Documents/school/pattern/Factory_System"
+      "workingDirectory": "/Users/aristidefumo/Documents/school/pattern/Factory_System",
+      "commandLineArgs": ""
     },
     "Factory_System_Windows": {
       "commandName": "Project",
       "workingDirectory": "C:\\Users\\yassi\\OneDrive\\Bureau\\4al_Sem2\\DesignPatterns\\Projet_DesignPatterns\\Factory_System"
+    },"Factory_System_Nour": {
+      "commandName": "Project",
+      "workingDirectory": "/Users/apoxx/RiderProjects/Factory_System"
     },
     "WSL": {
       "commandName": "WSL2",

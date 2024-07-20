@@ -5,5 +5,7 @@ public enum TypePiece
     Wing,
     Hull,
     Engine,
-    Thruster
+    Thruster, 
+    StarShip,
+    Assembly,
 }

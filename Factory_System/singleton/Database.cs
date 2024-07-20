@@ -39,10 +39,7 @@ public class Database
         if (temps.NumberPieces() < pieces.NumberPieces())
             throw new Exception("Le nombre de pièce a supprimer est trop grand");
         RemoveTotalPieces(pieces);
-        if (temps.NumberPieces() > pieces.NumberPieces())
-        {
-            AddInBdd(temps.WithRemoveNumber(pieces.NumberPieces()));
-        }
+        if (temps.NumberPieces() > pieces.NumberPieces()) AddInBdd(temps.WithRemoveNumber(pieces.NumberPieces()));
     }
 
     private bool Exists(Pieces pieces)

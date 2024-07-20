@@ -28,10 +28,20 @@ public class CommandRunBuilder(CommandAndArgs commandAndArgs)
                 need.Run();
                 break;
             case CommandEnum.Instructions:
+                var instruction = new InstructionRunCommand(CommandAndArgs.Args!);
+                instruction.Run();
                 break;
             case CommandEnum.Produce:
                 var produce = new ProduceRunCommand(CommandAndArgs.Args!);
                 produce.Run();
+                break;
+            case CommandEnum.AddTemplate:
+                var template = new AddTemplateRunCommand(CommandAndArgs.Args!);
+                template.Run();
+                break;
+            case CommandEnum.Receive:
+                var receive = new ReceiveCommand(CommandAndArgs.Args!);
+                receive.Run();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(CommandAndArgs.CommandEnum), CommandAndArgs.CommandEnum,
